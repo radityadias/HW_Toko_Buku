@@ -15,5 +15,8 @@ Route::prefix('admin')->group(function()
     Route::post('/books', [BooksController::class, 'storeBooks']) ->name('books.store');
     Route::delete('/books/{book_id}', [BooksController::class, 'delBooks']) -> name('books.delete');  
     Route::put('/books/{book_id}', [BooksController::class, 'updateBooks']) -> name('books.update');  
+
+    Route::get('/categories', [CategoriesController::class, 'getCategories']) -> name('categories.show');
+    Route::delete('/{category_id}', [CategoriesController::class, 'delCategories']) -> name('categories.delete');
     
 });

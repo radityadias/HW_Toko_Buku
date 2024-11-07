@@ -125,9 +125,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">

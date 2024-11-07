@@ -20,6 +20,13 @@
         </div>
     </div>
 
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border">
+            <p class="text-lg font-semibold">Categories</p>
+            <x-categories-table :books="$books" :categories="$cate" />
+        </div>
+    </div>
+
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
 </body>
 </html>
