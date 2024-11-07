@@ -27,7 +27,7 @@
                         </li>
                     @endforeach
                 </ul>
-                
+
             </div>
 
             <button data-modal-target="bookAdd" data-modal-toggle="bookAdd"
@@ -135,7 +135,8 @@
                         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                 </svg>
             </div>
-            <form action="{{ route('books.search', '') }}" method="GET" onsubmit="this.action='{{ url('admin') }}/' + encodeURIComponent(this.title.value)">
+            <form action="{{ route('books.search', '') }}" method="GET"
+                onsubmit="this.action='{{ url('admin') }}/' + encodeURIComponent(this.title.value)">
                 <input type="text" id="table-search-users" name="title"
                     class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Search for book">
@@ -159,9 +160,13 @@
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
                         <span class="mr-2">Title</span>
-                        <a href="{{ route('books.sort', ['sort_by' => 'title', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4"/>
+                        <a
+                            href="{{ route('books.sort', ['sort_by' => 'title', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
                             </svg>
                         </a>
                     </div>
@@ -169,9 +174,13 @@
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
                         <span class="mr-2">Author</span>
-                        <a href="{{ route('books.sort', ['sort_by' => 'author', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4"/>
+                        <a
+                            href="{{ route('books.sort', ['sort_by' => 'author', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
                             </svg>
                         </a>
                     </div>
@@ -179,9 +188,13 @@
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
                         <span class="mr-2">Price</span>
-                        <a href="{{ route('books.sort', ['sort_by' => 'price', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4"/>
+                        <a
+                            href="{{ route('books.sort', ['sort_by' => 'price', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
                             </svg>
                         </a>
                     </div>
@@ -189,9 +202,13 @@
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
                         <span class="mr-2">Stock</span>
-                        <a href="{{ route('books.sort', ['sort_by' => 'stock', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4"/>
+                        <a
+                            href="{{ route('books.sort', ['sort_by' => 'stock', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
                             </svg>
                         </a>
                     </div>
@@ -199,9 +216,13 @@
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
                         <span class="mr-2">Category</span>
-                        <a href="{{ route('books.sort', ['sort_by' => 'category_name', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4"/>
+                        <a
+                            href="{{ route('books.sort', ['sort_by' => 'category_name', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M8 20V7m0 13-4-4m4 4 4-4m4-12v13m0-13 4 4m-4-4-4 4" />
                             </svg>
                         </a>
                     </div>
@@ -350,7 +371,8 @@
                                     </div>
 
                                     <!-- Modal body -->
-                                    <form class="p-4 md:p-5" action="{{ route('books.update', $item->book_id) }}" method="POST">
+                                    <form class="p-4 md:p-5" action="{{ route('books.update', $item->book_id) }}"
+                                        method="POST">
                                         @csrf
                                         @method('PUT')
                                         <div class="grid gap-4 mb-4 grid-cols-2">
