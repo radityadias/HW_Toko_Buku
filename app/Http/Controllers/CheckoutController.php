@@ -3,59 +3,83 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\models\BooksModel;
-use app\models\CategoriesModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Models\BooksModel;
+use App\models\CategoriesModel;
 
 class CheckoutController extends Controller
 {
-    // Menampilkan halaman checkout
     public function showCheckoutPage()
     {
-        return view('checkout'); // Tampilkan halaman checkout tanpa data awal
-    }
+        return view('checkout');     }
 
-    // Menerima data cart dari JavaScript dan kirimkan ke view
     public function processCheckout(Request $request)
     {
-        // Ambil data cart dari request
-        $cart = $request->input('cart'); // Data cart dalam bentuk array
+        $cart = $request->input('cart');
         $totalAmount = $request->input('totalAmount');
-        // Kembalikan view checkout dengan data cart
         return view('checkout', compact('cart', 'totalAmount'));
     }
-    public function decreaseStocks(Request $request){
-          // Ambil data keranjang dari request (harus dalam bentuk array)
-    $cart = $request->input('cart');
+   public function reduceStock(Request $request){
+    try {
+        $cart = $request->input('cart');
 
-    // Pastikan $cart adalah array dan bukan null
-    if (is_array($cart)) {
-        // Looping melalui setiap item dalam keranjang
+        if (!is_array($cart) || empty($cart)) {
+            return response()->json(['message' => 'Data keranjang tidak valid.'], 400);
+        }
+
+        DB::beginTransaction();
+
         foreach ($cart as $item) {
-            // Ambil id buku dan kuantitas dari item keranjang
-            $bookId = $item['book_id']; // Misal, id buku
-            $quantity = $item['quantity']; // Kuantitas yang ingin dikurangi dari stok
+            // Validasi input
+            // $validator = Validator::make($item, [
+            //     'id_buku' => 'required|exists:books,id',
+            //     'quantity' => 'required|integer|min:1'
+            // ]);
 
-            // Ambil buku berdasarkan id
-            $book = BooksModel::find($bookId);
+            // if ($validator->fails()) {
+            //     DB::rollBack();
+            //     return response()->json([
+            //         'message' => 'Validasi gagal',
+            //         'errors' => $validator->errors()
+            //     ], 400);
+            // }
 
-            if ($book) {
-                // Kurangi stok buku
-                $book->stock -= $quantity;
+            $bookId = $item['book_id'];
+            $quantity = $item['quantity'];
 
-                // Pastikan stok tidak kurang dari 0
-                if ($book->stock < 0) {
-                    $book->stock = 0;
-                }
+            // Gunakan pessimistic locking untuk menghindari race condition
+            $book = BooksModel::lockForUpdate()->find($bookId);
 
-                // Simpan perubahan
-                $book->save();
+            if (!$book) {
+                DB::rollBack();
+                return response()->json(['message' => "Buku dengan ID $bookId tidak ditemukan."], 404);
             }
 
+            // Cek stok cukup
+            if ($book->stock < $quantity) {
+                DB::rollBack();
+                return response()->json([
+                    'message' => "Stok buku {$book->title} tidak mencukupi.",
+                    'available_stock' => $book->stock
+                ], 400);
+            }
+
+            // Kurangi stok
+            $book->stock -= $quantity;
+            $book->save();
         }
-           return response()->json(['message' => 'Stok berhasil dikurangi.'], 200);
+
+        // Commit transaksi
+        DB::commit();
+
+        return response()->json(['message' => 'Stok berhasil dikurangi.'], 200);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json([
+            'message' => 'Terjadi kesalahan',
+            'error' => $e->getMessage()
+        ], 500);
     }
-         else{
-             return response()->json(['message' => 'Data keranjang tidak valid.'], 400);
-         }
-    }
+}
 }

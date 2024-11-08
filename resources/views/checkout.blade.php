@@ -34,7 +34,7 @@
 
         </table>
                     <p>total belanja:{{ $totalAmount }}</p>
-                   <a href="#" id="checkout-button" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                   <a href="#" id="checkout-button" class="checkout-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     checkout</a>
                     <div id="dev"></div>
     @else
@@ -42,8 +42,11 @@
     @endif
 
     <script>
+        // Ambil data cart dari localStorage
+
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        let totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0)
+
+        let totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
         fetch('{{ route('checkout.process') }}', {
             method: 'POST',
             headers: {
@@ -52,28 +55,64 @@
             },
             body: JSON.stringify({ cart: cart, totalAmount: totalAmount})
         })
-        .then(response => response.text()) // mengambil respon sebagai teks html
+        .then(response => response.text()) // Mengambil respon sebagai teks HTML
         .then(html => {
-            // masukkan html yang diterima ke dalam body untuk menggantikan konten halaman
-            document.body.innerhtml = html;
+            // Masukkan HTML yang diterima ke dalam body untuk menggantikan konten halaman
+            document.body.innerHTML = html;
         })
         .catch((error) => {
-            console.error('error:', error); // tangani error
+            console.error('Error:', error); // Tangani error
         });
-        fetch('{{ route('reduce.stock') }}',{
+
+        // Modifikasi fungsi checkout
+    function checkout() {
+        // Ambil cart dari localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Konversi objek cart ke array yang sesuai dengan kebutuhan backend
+        let cartArray = Object.values(cart).map(item => ({
+            book_id: item.id_book,
+            quantity: item.quantity,
+            price: item.price
+        }));
+
+        // Tambahkan CSRF token
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        // Kirim data ke server
+        fetch('{{ route('reduce.stock') }}', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': csrfToken
             },
-            body: JSON.stringify({ cart: cart, totalAmount: totalAmount})
-        .then(response => response.text()) // mengambil respon sebagai teks html
-        .then()
-        .catch((error) => {
-            console.error('error:', error); // tangani error
-        });
-
+            body: JSON.stringify({ cart: cartArray })
         })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.message);
+            // Hapus cart setelah checkout berhasil
+            localStorage.removeItem('cart');
+            updateCartDisplay();
+            // Tampilkan pesan sukses
+            showNotification('Checkout berhasil!');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Checkout gagal. Silakan coba lagi.');
+        });
+    }
+
+    // Tambahkan event listener atau panggil pada tombol checkout
+    setTimeout(() => {
+    document.querySelector('.checkout-button').addEventListener('click', checkout);
+    }, 800);
+
 
     </script>
 </body>
