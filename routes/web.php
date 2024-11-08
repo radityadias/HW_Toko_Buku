@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -21,4 +22,8 @@ Route::prefix('admin')->group(function()
     Route::post('/categories', [CategoriesController::class, 'storeCategories']) -> name('categories.store');
 });
 
-Route::get('/', [UserController::class, 'index']);
+Route::prefix('/')->group(function()
+{
+    Route::get('/', [TransactionsController::class, 'getBooks'])->name('books.show');
+    Route::get('/search/{title}', [TransactionsController::class, 'getSearchBooks'])->name('books.search');
+});
