@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             'name' => 'Fantasy',
         ]);
 
-        BooksModel::create([
-            'title' => 'Sky',
-            'author' => 'YooKsi',
-            'price' => 15000,
-            'stock' => 19,
-            'category_id' => 2,
-        ]);
+        // BooksModel::create([
+        //     'title' => 'Sky',
+        //     'author' => 'YooKsi',
+        //     'price' => 15000,
+        //     'stock' => 19,
+        //     'category_id' => 2,
+        // ]);
     }
 }

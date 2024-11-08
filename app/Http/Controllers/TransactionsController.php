@@ -3,11 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\SalesModel;
+use  App\Models\CategoryModel;
 use App\Models\BooksModel;
 use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
+    public function getBooks(){
+        $books = BooksModel::with('category')->get();
+
+        return view('user', compact('books'));
+    }
+
+    public function getSearchBooks($title){
+        if (empty($title)) {
+            return redirect()->back()->with('error', 'Search term cannot be empty.');
+        }
+
+        try {
+            $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
+            $cate = CategoryModel::all();
+
+            // Check if books were found
+            if ($books->isEmpty()) {
+                throw new \Exception('No books with title: ' . $title);
+            }
+
+            return view('user', compact('books', 'cate'));
+        } catch (\Exception $e) {
+            // Redirect back with an error message
+            return redirect()->back()->with('error', ' ' . $e->getMessage());
+        }
+    }
+
     public function getTransactions(){
         $transactions = SalesModel::with('customers', 'books')->get();
         return view('customers', compact('transactions'));
