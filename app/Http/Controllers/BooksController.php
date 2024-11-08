@@ -53,6 +53,17 @@ class BooksController extends Controller
         }
     }
 
+    public function getFilterBooks($genre){
+        $books = BooksModel::with('category')->where('category_id', '=', $genre)->get();
+        $cate = CategoryModel::all();
+
+        if ($books->isEmpty()) {
+            throw new \Exception('No books with Genre: ' . $genre);
+        }
+
+        return view('admin', compact('books', 'cate'));
+    }
+
     public function delBooks($id){
         $books = BooksModel::where('book_id', $id);
 
