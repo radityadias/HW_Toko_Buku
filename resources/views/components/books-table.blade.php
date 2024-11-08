@@ -463,7 +463,7 @@
             </tr>
             @endforeach
             @else
-            <p>No books available.</p>
+            <td class="text-lg relative top-3">No books available.</td>
             @endif
         </tbody>
     </table>
