@@ -16,9 +16,21 @@ class CheckoutController extends Controller
 
     public function processCheckout(Request $request)
     {
-        $cart = $request->input('cart');
-        $totalAmount = $request->input('totalAmount');
-        return view('checkout', compact('cart', 'totalAmount'));
+        $cart = $request->input('cart', []);
+        $totalAmount = $request->input('totalAmount', 0);
+
+        if (empty($cart)) {
+            return view('checkout', [
+                'cart' => [],
+                'totalAmount' => 0
+            ]);
+        }
+
+        // Proses checkout normal
+        return view('checkout', [
+            'cart' => $cart,
+            'totalAmount' => $totalAmount
+        ]);
     }
    public function reduceStock(Request $request){
     try {
