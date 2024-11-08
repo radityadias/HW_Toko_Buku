@@ -33,8 +33,12 @@ class BooksController extends Controller
     }
 
     public function getSearchBooks($title){
+        if (empty($title)) {
+            return redirect()->back()->with('error', 'Search term cannot be empty.');
+        }
+
         try {
-            $books = BooksModel::with('category')->where('title', '=', $title)->get();
+            $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
             $cate = CategoryModel::all();
 
             // Check if books were found
@@ -62,14 +66,14 @@ class BooksController extends Controller
             $request->validate([
                 'title' => 'required',
                 'author' => 'required',
-                'price' => 'required',
+                'price' => 'required|numeric',
                 'stock' => 'required',
                 'category_id' => 'required',
             ], [
                 'title.required' => 'The title field is required.',
                 'author.required' => 'The author field is required.',
                 'price.required' => 'The price field is required.',
-                'price.float' => 'The price must be a number.',
+                'price.numeric' => 'The price must be a number.',
                 'stock.required' => 'The stock field is required.',
                 'stock.integer' => 'The stock must be an integer.',
                 'category_id.required' => 'The category field is required.',
