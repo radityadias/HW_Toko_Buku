@@ -44,20 +44,20 @@ class CheckoutController extends Controller
 
         foreach ($cart as $item) {
             // Validasi input
-            // $validator = Validator::make($item, [
-            //     'id_buku' => 'required|exists:books,id',
-            //     'quantity' => 'required|integer|min:1'
-            // ]);
+            $validator = Validator::make($item, [
+                'id_book' => 'required|exists:books,book_id',
+                'quantity' => 'required|integer|min:1'
+            ]);
 
-            // if ($validator->fails()) {
-            //     DB::rollBack();
-            //     return response()->json([
-            //         'message' => 'Validasi gagal',
-            //         'errors' => $validator->errors()
-            //     ], 400);
-            // }
+            if ($validator->fails()) {
+                DB::rollBack();
+                return response()->json([
+                    'message' => 'Validasi gagal',
+                    'errors' => $validator->errors()
+                ], 400);
+            }
 
-            $bookId = $item['book_id'];
+            $bookId = $item['id_book'];
             $quantity = $item['quantity'];
 
             // Gunakan pessimistic locking untuk menghindari race condition
