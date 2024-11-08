@@ -42,50 +42,8 @@
     @endif
 
     <script>
-        // Ambil data cart dari localStorage
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        let totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        console.log(totalAmount);
-        // Kirim data cart ke Laravel menggunakan Fetch API
-        document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        const checkoutButton = document.getElementById('checkout-button');
-        if (checkoutButton) {
-            checkoutButton.addEventListener('click', function() {
-                // Pastikan variabel `cart` sudah didefinisikan
-                const cart = []; // Contoh: ganti dengan data cart yang sesuai
-
-                fetch('{{ route("decrease.stocks") }}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravel CSRF token
-                    },
-                    body: JSON.stringify({ cart: cart })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const responseMessage = document.getElementById('responseMessage');
-                    if (responseMessage) {
-                        responseMessage.innerText = data.message; // Tampilkan pesan dari response
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    const responseMessage = document.getElementById('responseMessage');
-                    if (responseMessage) {
-                        responseMessage.innerText = 'Gagal mengurangi stok.';
-                    }
-                });
-            });
-        } else {
-            console.error('Button "checkout-button" tidak ditemukan');
-        }
-    }, 800);
-});
-
+        let totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0)
         fetch('{{ route('checkout.process') }}', {
             method: 'POST',
             headers: {
@@ -94,32 +52,28 @@
             },
             body: JSON.stringify({ cart: cart, totalAmount: totalAmount})
         })
-        .then(response => response.text()) // Mengambil respon sebagai teks HTML
+        .then(response => response.text()) // mengambil respon sebagai teks html
         .then(html => {
-            // Masukkan HTML yang diterima ke dalam body untuk menggantikan konten halaman
-            document.body.innerHTML = html;
+            // masukkan html yang diterima ke dalam body untuk menggantikan konten halaman
+            document.body.innerhtml = html;
         })
         .catch((error) => {
-            console.error('Error:', error); // Tangani error
+            console.error('error:', error); // tangani error
         });
-//     checkoutButton.addEventListener('click', function() {
-//     fetch('{{ route("decrease.stocks") }}', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'X-CSRF-TOKEN': '{{ csrf_token() }}' // Laravel CSRF token
-//       },
-//       body: JSON.stringify({ cart: cart })
-//     })
-//     .then(response => response.json())
-//     .then(data => {
-//       document.getElementById('responseMessage').innerText = data.message; // Tampilkan pesan
-//     })
-//     .catch(error => {
-//       console.error('Error:', error);
-//       document.getElementById('responseMessage').innerText = 'Gagal mengurangi stok.';
-//     });
-//   });
+        fetch('{{ route('reduce.stock') }}',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify({ cart: cart, totalAmount: totalAmount})
+        .then(response => response.text()) // mengambil respon sebagai teks html
+        .then()
+        .catch((error) => {
+            console.error('error:', error); // tangani error
+        });
+
+        })
 
     </script>
 </body>

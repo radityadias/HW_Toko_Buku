@@ -20,6 +20,8 @@ Route::prefix('admin')->group(function()
     Route::delete('/{category_id}', [CategoriesController::class, 'delCategories']) -> name('categories.delete');
     Route::post('/categories', [CategoriesController::class, 'storeCategories']) -> name('categories.store');
 });
-Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout.show');
+Route::prefix('checkout')->group(function(){
+Route::get('/', [CheckoutController::class, 'showCheckoutPage'])->name('checkout.show');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-Route::post('/decrease-stocks', [BookController::class, 'decreaseStocks'])->name('decrease.stocks');
+// Route::post('/reduce-stocks', [CheckoutController::class, 'reduceStock'])->name('reduce.stock');
+});
