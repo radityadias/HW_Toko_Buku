@@ -16,10 +16,15 @@ class BooksModel extends Model
         'price',
         'stock',
         'category_id',
+        'sale_id',
 
     ];
 
     public function category(){
         return $this -> belongsTo(CategoryModel::class, 'category_id', 'category_id');
+    }
+
+    public function sales(){
+        return $this->belongsToMany(SalesModel::class, 'book_sale', 'book_id', 'sale_id');
     }
 }
