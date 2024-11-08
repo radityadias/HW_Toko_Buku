@@ -18,4 +18,8 @@ class SalesModel extends Model
     public function customer(){
         return $this -> belongsTo(CustomersModel::class);
     }
+
+    public function books(){
+        return $this -> belongsToMany(BooksModel::class, 'book_sale', 'sale_id', 'book_id');
+    }
 }
