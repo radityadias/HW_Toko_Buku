@@ -12,11 +12,13 @@ class SalesModel extends Model
 
     protected $fillable = [
         'name',
-        'total_price'
+        'total_price',
+        // 'quantity',
+        'customer_id'
     ];
 
     public function customer(){
-        return $this -> belongsTo(CustomersModel::class);
+        return $this -> belongsTo(CustomersModel::class, 'customer_id', 'customer_id');
     }
 
     public function books(){

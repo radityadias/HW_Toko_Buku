@@ -34,3 +34,4 @@ Route::post('/checkout/name', [CustomersController::class, 'storeCustomers']) ->
 Route::post('/store-transaction', [TransactionsController::class, 'storeTransactions'])->name('transaction.store');
 Route::post('/checkout/prosess', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
 Route::post('/reduce-stock', [CheckoutController::class, 'reduceStock'])->name('reduce.stock');
+Route::delete('/sales/delete/{sale_id}', [TransactionsController::class, 'deleteTransaction']) ->name('transaction.delete');
