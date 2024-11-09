@@ -15,12 +15,18 @@ class TransactionsController extends Controller
         return view('user', compact('books'));
     }
 
-    public function getSearchBooks($title){
+    public function getSearchBooks($title = null){
+
+          // Trim whitespace and check if the title is empty or null
+          $title = trim($title);
+
+
         if (empty($title)) {
             return redirect()->back()->with('error', 'Search term cannot be empty.');
         }
 
         try {
+            // Search books by title if it's not empty
             $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
             $cate = CategoryModel::all();
 
