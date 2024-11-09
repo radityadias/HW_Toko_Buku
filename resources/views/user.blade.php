@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     {{-- Navbar & Sidebar --}}
     <x-navbar-user />
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
@@ -39,8 +40,11 @@
                     <p class="text-gray-700 mt-2">{{ $book->author }}</p>
                     <p class="text-sm text-gray-500">{{ $book->category->name }}</p>
                     <div class="flex items-center justify-between">
-                        <span class="md:text-lg text-[16px] font-semibold">Rp{{ $book->price }}</span>
-                        <button data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Buy now</button>
+                        <span class="md:text-lg text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                        <form>
+                        <button type="submit"  data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Buy now</button>
+                        </form>
                     </div>
                 </div>
                 <!-- Card 1 -->
@@ -51,8 +55,9 @@
     </div>
     <script src="{{ asset('js/cart.js') }}">
         // Fungsi untuk menambahkan buku ke keranjang
-
     </script>
+    <script src="{{ asset('js/numberFormat.js') }}"></script>
+
 </body>
 
 </html>
