@@ -25,6 +25,8 @@ class BooksModel extends Model
     }
 
     public function sales(){
-        return $this->belongsToMany(SalesModel::class, 'book_sale', 'book_id', 'sale_id');
+        return $this->belongsToMany(SalesModel::class, 'book_sale', 'book_id', 'sale_id')
+        ->withPivot('quantity');
+
     }
 }

@@ -51,8 +51,7 @@ class TransactionsController extends Controller
         $request->validate([
             'customer_id' => 'required',
             'total_price' => 'required',
-            // 'quantity' => 'required',
-            'book_ids' => 'required|array', // Expecting an array of book IDs
+            // 'book_ids' => 'required|array', // Expecting an array of book IDs
         ]);
 
         // Create the sale
@@ -63,6 +62,16 @@ class TransactionsController extends Controller
         // $sale->quantity = $request->input('quantity');
         $sale->sale_date = now();
         $sale->save();
+        $books = $request->input('books');
+        $saleIdLocate = SalesModel::find($sale->sale_id);
+        $bookData = [];
+        foreach ($books as $book) {
+        // Tambahkan setiap book_id dan quantity ke array
+        $bookData[$book['id_book']] = [
+            'quantity' => $book['quantity']
+        ];
+        }
+        // dd($request->all());
         // $sale = SalesModel::create([
         //     'customer_id' => $request->customer_id,
         //     'total_price' => $request->total_price,
@@ -71,7 +80,10 @@ class TransactionsController extends Controller
         // ]);
 
         // Attach books to the sale
-        $sale->books()->attach($request->book_ids);
+        // $sale->books()->attach($request->book_ids);
+        // $sale->books()->attach($request->quantitys);
+         $saleIdLocate->books()->attach($bookData);
+
 
         return response()->json(['message' => 'Checkout behasil dilakukan'], 200);
     }
