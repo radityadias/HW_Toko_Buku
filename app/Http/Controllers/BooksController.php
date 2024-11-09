@@ -20,6 +20,8 @@ class BooksController extends Controller
     public function sortBooks(Request $request){
         $sortColumn = $request->input('sort_by', 'title');
         $sortDirection = $request->input('sort_direction', 'asc');
+        $transactions = SalesModel::with('customer', 'books')->get();
+
         $cate = CategoryModel::all();
         $transactions = SalesModel::with('customers', 'books')->get();
 
@@ -31,7 +33,7 @@ class BooksController extends Controller
         } else {
             $books = BooksModel::orderBy($sortColumn, $sortDirection)->get();
         }
-        return view('admin', compact('transactions','books', 'cate'));
+        return view('admin', compact('books', 'cate', 'transactions'));
     }
 
     public function getSearchBooks($title){
