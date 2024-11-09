@@ -129,6 +129,8 @@
     let successMessage = "checkout successful";
     let bookIds = cart.map(item => item.id_book); // ['1', '2', '3']
     let numberArrayOfBookIds = bookIds.map(id => Number(id));
+    // let quantity = cart.map(item => item.quantity);
+    // let numberArrayOfQuantity = quantity.map(quantity => Number(quantity));
     // Ambil data cart dari localStorage
     function getRandomNumberInRange() {
     return Math.floor(Math.random() * 4) + 1;
@@ -234,7 +236,8 @@
     body: JSON.stringify({
         customer_id: getRandomNumberInRange(), // Ganti dengan ID pelanggan sebenarnya, misalnya dari sesi pengguna
         total_price: totalAmount, // Pastikan totalAmount adalah jumlah total yang benar
-        book_ids: numberArrayOfBookIds // Array of objects with id_book and quantity
+        book_ids: numberArrayOfBookIds, // Array of objects with id_book and quantity
+        // quantity: numberArrayOfQuantity,
     })
     })
     .then(response => {

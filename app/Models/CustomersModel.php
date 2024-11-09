@@ -15,6 +15,6 @@ class CustomersModel extends Model
     ];
 
     public function sale(){
-        return $this -> belongsTo(SalesModel::class);
+        return $this -> belongsTo(SalesModel::class, 'customer_id', 'customer_id');
     }
 }

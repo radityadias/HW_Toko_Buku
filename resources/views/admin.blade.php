@@ -47,6 +47,12 @@
             <x-categories-table :books="$books" :categories="$cate" />
         </div>
     </div>
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 border">
+            <p class="text-lg font-semibold mb-5">Sales</p>
+            <x-sales-table :books="$books" :categories="$cate" :transaction="$transactions"/>
+        </div>
+    </div>
 
 
     @error('price')
