@@ -47,6 +47,7 @@
             <x-categories-table :books="$books" :categories="$cate" />
         </div>
     </div>
+
     <div class="p-4 sm:ml-64">
         <div class="p-4 border">
             <p class="text-lg font-semibold mb-5">Sales</p>
@@ -55,17 +56,18 @@
     </div>
 
     <div class="p-4 sm:ml-64">
-        <div class="p-4 mt-14 border">
-            <p class="text-lg font-semibold">Log Sale</p>
-            <x-sales-table :books="$books" :categories="$cate"/>
+        <div class="p-4 border">
+            <p class="text-lg font-semibold mb-5">Users</p>
+            <x-user-table :books="$books" :categories="$cate" :customer="$customers"/>
         </div>
     </div>
+
 
     @error('price')
     <div class="error">{{ $message }}</div>
     @enderror
 
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="/"></script>
     <script src="{{ asset('js/numberFormat.js') }}"></script>
 </body>
 

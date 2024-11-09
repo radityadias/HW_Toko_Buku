@@ -82,7 +82,7 @@
                             <div class="text-base font-semibold">{{ $item->total_price }}</div>
                         </div>
                     </th>
-                    
+
                     <td class="px-6 py-4">
 
                         {{-- Delete Categories --}}

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BooksModel;
 use App\Models\CategoryModel;
 use App\Models\SalesModel;
+use App\Models\CustomersModel;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -21,9 +22,10 @@ class BooksController extends Controller
         $sortColumn = $request->input('sort_by', 'title');
         $sortDirection = $request->input('sort_direction', 'asc');
         $transactions = SalesModel::with('customer', 'books')->get();
+        $customers = CustomersModel::all();
 
         $cate = CategoryModel::all();
-        $transactions = SalesModel::with('customers', 'books')->get();
+        $transactions = SalesModel::with('customer', 'books')->get();
 
         if ($sortColumn == 'category_name') {
             $books = BooksModel::join('categories', 'books.category_id', '=', 'categories.category_id')
@@ -33,7 +35,7 @@ class BooksController extends Controller
         } else {
             $books = BooksModel::orderBy($sortColumn, $sortDirection)->get();
         }
-        return view('admin', compact('books', 'cate', 'transactions'));
+        return view('admin', compact('books', 'cate', 'transactions', 'customers'));
     }
 
     public function getSearchBooks($title){
