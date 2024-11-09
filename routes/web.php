@@ -32,5 +32,5 @@ Route::prefix('/')->group(function()
 Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout.show');
 Route::post('/checkout/name', [CustomersController::class, 'storeCustomers']) -> name('customers.store');
 Route::post('/store-transaction', [TransactionsController::class, 'storeTransactions'])->name('transaction.store');
-Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+Route::post('/checkout/prosess', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
 Route::post('/reduce-stock', [CheckoutController::class, 'reduceStock'])->name('reduce.stock');

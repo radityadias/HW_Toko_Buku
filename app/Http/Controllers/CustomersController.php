@@ -20,6 +20,6 @@ class CustomersController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('checkout');
+        return redirect()->back();
     }
 }
