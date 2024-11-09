@@ -30,6 +30,7 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
             @foreach ($books as $book)
+            @if ($book->stock != 0)
                 <!-- Card 1 -->
                 <div class="bg-white shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
                     <img src="book-sample.png" alt="Cover Buku" class="w-full h-64 object-cover rounded-lg mb-4">
@@ -39,14 +40,19 @@
                     <p class="text-sm text-gray-500">{{ $book->category->name }}</p>
                     <div class="flex items-center justify-between">
                         <span class="md:text-lg text-[16px] font-semibold">Rp{{ $book->price }}</span>
-                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Buy now</button>
+                        <button data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Buy now</button>
                     </div>
                 </div>
                 <!-- Card 1 -->
+            @endif
             @endforeach
 
         </div>
     </div>
+    <script src="{{ asset('js/cart.js') }}">
+        // Fungsi untuk menambahkan buku ke keranjang
+
+    </script>
 </body>
 
 </html>
