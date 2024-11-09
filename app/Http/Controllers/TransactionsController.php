@@ -56,8 +56,10 @@ class TransactionsController extends Controller
 
         // Create the sale
         $sale = new SalesModel;
+        
         $sale->customer_id = $request->input('customer_id');
         $sale->total_price = $request->input('total_price');
+        // $sale->quantity = $request->input('quantity');
         $sale->sale_date = now();
         $sale->save();
         $books = $request->input('books');
