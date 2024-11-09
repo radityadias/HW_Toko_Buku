@@ -33,6 +33,9 @@ class BooksController extends Controller
     }
 
     public function getSearchBooks($title){
+
+        $title = trim($title ?? '');
+
         if (empty($title)) {
             return redirect()->back()->with('error', 'Search term cannot be empty.');
         }
