@@ -10,26 +10,38 @@ use App\models\CategoriesModel;
 
 class CheckoutController extends Controller
 {
+    //     public function addToCart()
+    // {
+    //     // Set a message in the session
+    //     session()->flash('toast_message', 'Book successfully added to cart!');
+    //     logger('Debug message');
+    //     // Redirect back to the view
+    //     return redirect()->back();
+    // }
     public function showCheckoutPage()
     {
-        return view('checkout');     }
+        $books = BooksModel::all();
+        return view('checkout', compact('books'));     }
 
     public function processCheckout(Request $request)
     {
+        $books = BooksModel::all();
         $cart = $request->input('cart', []);
         $totalAmount = $request->input('totalAmount', 0);
 
         if (empty($cart)) {
             return view('checkout', [
                 'cart' => [],
-                'totalAmount' => 0
+                'totalAmount' => 0,
+                'books' => $books
             ]);
         }
 
         // Proses checkout normal
         return view('checkout', [
             'cart' => $cart,
-            'totalAmount' => $totalAmount
+            'totalAmount' => $totalAmount,
+            'books' => $books
         ]);
     }
    public function reduceStock(Request $request){
@@ -85,7 +97,7 @@ class CheckoutController extends Controller
         // Commit transaksi
         DB::commit();
 
-        return response()->json(['message' => 'Stok berhasil dikurangi.'], 200);
+        return response()->json(['message' => 'Checkout behasil dilakukan'], 200);
     } catch (\Exception $e) {
         DB::rollBack();
         return response()->json([
