@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\TransactionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -27,3 +29,8 @@ Route::prefix('/')->group(function()
     Route::get('/', [TransactionsController::class, 'getBooks'])->name('books.show');
     Route::get('/search/{title?}', [TransactionsController::class, 'getSearchBooks'])->name('books.search');
 });
+Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout.show');
+Route::post('/checkout/name', [CustomersController::class, 'storeCustomers']) -> name('customers.store');
+Route::post('/store-transaction', [TransactionsController::class, 'storeTransactions'])->name('transaction.store');
+Route::post('/checkout/prosess', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+Route::post('/reduce-stock', [CheckoutController::class, 'reduceStock'])->name('reduce.stock');

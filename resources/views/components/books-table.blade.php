@@ -276,7 +276,7 @@
                     {{ $item->author }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $item->price }}
+                    Rp {{ number_format($item->price, 0, ',', '.') }}
                 </td>
                 <td class="px-6 py-4">
                     {{ $item->stock }}
