@@ -48,6 +48,12 @@
         </div>
     </div>
 
+    <div class="p-4 sm:ml-64">
+        <div class="p-4 mt-14 border">
+            <p class="text-lg font-semibold">Log Sale</p>
+            <x-sales-table :books="$books" :categories="$cate"/>
+        </div>
+    </div>
 
     @error('price')
     <div class="error">{{ $message }}</div>
