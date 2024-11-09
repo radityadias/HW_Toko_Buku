@@ -82,13 +82,13 @@
                             <button type="submit" class="mt-2 ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Enter</button>
                         </div>
                         </form>
-                        
-                   
+
+
                     <p class="text-lg font-semibold text-gray-900 dark:text-white mt-10">
                         Total Belanja: Rp <span id="total-amount">{{ number_format($totalAmount, 0, ',', '.') }}</span>
                     </p>
                 </div>
-                
+
                 @if ($disabled)
                     <a href="#" onclick="checkout()" class="checkout-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 ease-in-out">
                         Checkout
@@ -110,8 +110,11 @@
 
 <script>
     // Ambil data cart dari localStorage
+    let totalAmount;
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+    let bookIds = cart.map(item => item.id_book); // ['1', '2', '3']
+    let numberArrayOfBookIds = bookIds.map(id => Number(id));
 
     function updateQuantity(id_book, change) {
         const index = cart.findIndex(item => item.id_book === id_book);
@@ -122,18 +125,21 @@
                 cart[index].quantity += 1; // Tambah kuantitas
             }
             localStorage.setItem('cart', JSON.stringify(cart)); // Simpan kembali ke localStorage
-            showCartData(); // Tampilkan data keranjang yang diperbarui
+            // window.location.reload();
+            showCartData();
         }
     }
 
     function removeItem(id_book) {
         cart = cart.filter(item => item.id_book !== id_book); // Hapus item dari keranjang
         localStorage.setItem('cart', JSON.stringify(cart)); // Simpan kembali ke localStorage
-        showCartData(); // Tampilkan data keranjang yang diperbarui
+        // window.location.reduce(); // Tampilkan data keranjang yang diperbarui
+        showCartData();
     }
 
     function showCartData() {
         // document.getElementById('total-amount').innerText = number_format(totalAmount, 0, ',', '.');
+        totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
         fetch('{{ route('checkout.process') }}', {
             method: 'POST',
@@ -147,6 +153,8 @@
         .then(html => {
             // Masukkan HTML yang diterima ke dalam body untuk menggantikan konten halaman
             document.body.innerHTML = html;
+            console.log('pasti bisa');
+            console.log(totalAmount);
         })
         .catch((error) => {
             console.error('Error:', error); // Tangani error
@@ -156,6 +164,7 @@
     function checkout() {
         // Kirim data ke server
         // requestToStore();
+
         fetch('{{ route('reduce.stock') }}', {
             method: 'POST',
             headers: {
@@ -172,18 +181,19 @@
         })
         .then(data => {
             console.log(data.message);
+            requestToStore(totalAmount);
             alert(data.message);
             // Hapus cart setelah checkout berhasil
-            localStorage.removeItem('cart');
+            // localStorage.removeItem('cart');
             // Tampilkan data keranjang yang diperbarui
-            window.location.reload();
+            // window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
     }
-    function requestToStore(){
+    function requestToStore(totalAmount){
     fetch('{{ route('transaction.store') }}', {
     method: 'POST',
     headers: {
@@ -193,10 +203,7 @@
     body: JSON.stringify({
         customer_id: 1, // Ganti dengan ID pelanggan sebenarnya, misalnya dari sesi pengguna
         total_price: totalAmount, // Pastikan totalAmount adalah jumlah total yang benar
-        book_ids: cart.map(item => ({
-            id_book: item.id_book, // ID buku
-            quantity: item.quantity // Jumlah buku yang ingin dibeli
-        })) // Array of objects with id_book and quantity
+        book_ids: numberArrayOfBookIds // Array of objects with id_book and quantity
     })
     })
     .then(response => {

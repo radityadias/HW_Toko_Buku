@@ -49,16 +49,22 @@ class TransactionsController extends Controller
         ]);
 
         // Create the sale
-        $sale = SalesModel::create([
-            'customer_id' => $request->customer_id,
-            'total_price' => $request->total_price,
-            'sale_date' => now(), // Set the current date
-        ]);
+        $sale = new SalesModel;
+        $sale->customer_id = $request->input('customer_id');
+        $sale->total_price = $request->input('total_price');
+        $sale->sale_date = now();
+        $sale->save();
+        // $sale = SalesModel::create([
+        //     'customer_id' => $request->customer_id,
+        //     'total_price' => $request->total_price,
+        //     'sale_date' => now(),
+
+        // ]);
 
         // Attach books to the sale
         $sale->books()->attach($request->book_ids);
 
-        return view('customers', compact('sale'));
+        return response()->json(['message' => 'Checkout behasil dilakukan'], 200);
     }
 
     public function updateTransaction(Request $request, $id){
