@@ -52,7 +52,7 @@
             @if ($book->stock != 0)
                 <!-- Card 1 -->
                 <div class="bg-white shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
-                    <img src="book-sample.png" alt="Cover Buku" class="w-full h-64 object-cover rounded-lg mb-4">
+                    <img src="{{ asset('book-sample.png') }}" alt="Cover Buku" class="w-full h-64 object-cover rounded-lg mb-4">
                     <h3 class="text-lg font-semibold mb-1">{{ $book->title }}</h3>
                     <hr>
                     <p class="text-gray-700 mt-2">{{ $book->author }}</p>
