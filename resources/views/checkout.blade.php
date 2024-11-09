@@ -72,15 +72,28 @@
             <div class="px-6 py-4 dark:bg-gray-700 flex justify-center items-center">
                 <a class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md" href="{{ route('books.show') }}">Go Back</a>
             </div>
-            <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 flex justify-between items-center">
-                <p class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Total Belanja: Rp <span id="total-amount">{{ number_format($totalAmount, 0, ',', '.') }}</span>
-                </p>
-           @if ($disabled)
-                <a href="#" onclick="checkout()" class="checkout-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 ease-in-out">
-                    Checkout
-                </a>
-            @else
+            <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 flex justify-between items-end">
+                <div class="flex flex-col">
+                    <form action="{{ route('customers.store') }}" method="POST">
+                        @csrf
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your name</label>
+                        <div class="flex">
+                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your name ..." required />
+                            <button type="submit" class="mt-2 ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Enter</button>
+                        </div>
+                        </form>
+                        
+                   
+                    <p class="text-lg font-semibold text-gray-900 dark:text-white mt-10">
+                        Total Belanja: Rp <span id="total-amount">{{ number_format($totalAmount, 0, ',', '.') }}</span>
+                    </p>
+                </div>
+                
+                @if ($disabled)
+                    <a href="#" onclick="checkout()" class="checkout-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 ease-in-out">
+                        Checkout
+                    </a>
+                @else
             <div class="text-red-500">Adjust your quantity</div>
            @endif
             </div>
