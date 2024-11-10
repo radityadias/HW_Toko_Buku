@@ -10,23 +10,57 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+   
     public function run(): void
     {
-        // User::factory(10)->create();
+        $genres = [
+            ['name' => 'Fantasy'],
+            ['name' => 'Isekai'],
+            ['name' => 'Action'],
+            ['name' => 'Comedy'],
+            ['name' => 'Romance'],
+        ];
 
-        CategoryModel::create([
-            'name' => 'Fantasy',
-        ]);
+        $books = [
+            [
+                'title' => 'Majnun',
+                'author' => 'Anton Kurnia',
+                'price' => 70000,
+                'stock' => 20,
+                'category_id' => 1,
+            ],
+            [
+                'title' => 'Laskar Pelangi',
+                'author' => 'Andrea Hirata',
+                'price' => 85000,
+                'stock' => 15,
+                'category_id' => 2,
+            ],
+            [
+                'title' => 'Bumi Manusia',
+                'author' => 'Pramoedya Ananta Toer',
+                'price' => 90000,
+                'stock' => 25,
+                'category_id' => 3,
+            ],
+            [
+                'title' => 'Supernova: Ksatria, Putri, dan Bintang Jatuh',
+                'author' => 'Dewi Lestari',
+                'price' => 95000,
+                'stock' => 10,
+                'category_id' => 4,
+            ],
+            [
+                'title' => 'Ayat-Ayat Cinta',
+                'author' => 'Habiburrahman El Shirazy',
+                'price' => 80000,
+                'stock' => 30,
+                'category_id' => 5,
+            ],
+        ];
 
-        // BooksModel::create([
-        //     'title' => 'Sky',
-        //     'author' => 'YooKsi',
-        //     'price' => 15000,
-        //     'stock' => 19,
-        //     'category_id' => 2,
-        // ]);
+        // Insert all genres at once
+        CategoryModel::insert($genres);
+        BooksModel::insert($books);
     }
 }

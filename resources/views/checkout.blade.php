@@ -123,147 +123,16 @@
     <div id="dev" class="mt-4"></div>
 </div>
 
-<script>
-    let totalAmount;
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let successMessage = "checkout successful";
-    let bookIds = cart.map(item => item.id_book); // ['1', '2', '3']
-    let numberArrayOfBookIds = bookIds.map(id => Number(id));
-    // let quantity = cart.map(item => item.quantity);
-    // let numberArrayOfQuantity = quantity.map(quantity => Number(quantity));
-    // Ambil data cart dari localStorage
-    function getRandomNumberInRange() {
-    return Math.floor(Math.random() * 4) + 1;
-   }
-
-// Contoh penggunaan7
-    function successNotification(message){
-        let notification = document.getElementById('toast-success');
-        let toastDescription =document.getElementById('message-notification');
-        toastDescription.innerHTML = message;
-        console.log("disini")
-        notification.classList.remove('opacity-0');
-        notification.classList.add('opacity-100');
-        setTimeout(() => {
-            notification.classList.remove('opacity-100');
-            notification.classList.add('opacity-0');
-        }, 5000);
-    }
-
-    function updateQuantity(id_book, change) {
-        const index = cart.findIndex(item => item.id_book === id_book);
-        if (index !== -1) {
-            if (change === -1 && cart[index].quantity > 1) {
-                cart[index].quantity -= 1; // Kurangi kuantitas
-            } else if (change === 1) {
-                cart[index].quantity += 1; // Tambah kuantitas
-            }
-            localStorage.setItem('cart', JSON.stringify(cart)); // Simpan kembali ke localStorage
-            // window.location.reload();
-            showCartData();
-        }
-    }
-
-    function removeItem(id_book) {
-        cart = cart.filter(item => item.id_book !== id_book); // Hapus item dari keranjang
-        localStorage.setItem('cart', JSON.stringify(cart)); // Simpan kembali ke localStorage
-        // window.location.reduce(); // Tampilkan data keranjang yang diperbarui
-        showCartData();
-    }
-
-    function showCartData() {
-        // document.getElementById('total-amount').innerText = number_format(totalAmount, 0, ',', '.');
-        totalAmount = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-
-        fetch('{{ route('checkout.process') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ cart: cart, totalAmount: totalAmount })
-        })
-        .then(response => response.text()) // Mengambil respon sebagai teks HTML
-        .then(html => {
-            // Masukkan HTML yang diterima ke dalam body untuk menggantikan konten halaman
-            document.body.innerHTML = html;
-            console.log('pasti bisa');
-            console.log(totalAmount);
-        })
-        .catch((error) => {
-            console.error('Error:', error); // Tangani error
-        });
-    }
-
-    function checkout() {
-        // Kirim data ke server
-        // requestToStore();
-
-        fetch('{{ route('reduce.stock') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ cart: cart })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data.message);
-            requestToStore(totalAmount);
-            // Hapus cart setelah checkout berhasil
-            // localStorage.removeItem('cart');
-            // Tampilkan data keranjang yang diperbarui
-            // window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-
-    }
-    function requestToStore(){
-    fetch('{{ route('transaction.store') }}', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-    },
-    body: JSON.stringify({
-        customer_id: getRandomNumberInRange(), // Ganti dengan ID pelanggan sebenarnya, misalnya dari sesi pengguna
-        total_price: totalAmount, // Pastikan totalAmount adalah jumlah total yang benar
-        book_ids: numberArrayOfBookIds, // Array of objects with id_book and quantity
-        // quantity: numberArrayOfQuantity,
-    })
-    })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-    })
-    .then(data => {
-        console.log(data.message);
-        localStorage.removeItem('cart'); // Hapus cart setelah checkout berhasil
-        successNotification(successMessage);
-        setTimeout(() => {
-        window.location.reload();
-        }, 1000);
-        // window.location.reload(); // Muat ulang halaman untuk memperbarui tampilan
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        // alert('Checkout gagal. Silakan coba lagi.');
-    });
-
-    }
-
-
-
-    showCartData(); // Tampilkan data keranjang saat halaman dimuat
+   <script>
+    const routes = {
+        checkoutProcess: @json(route('checkout.process')),
+        reduceStock: @json(route('reduce.stock')),
+        transactionStore: @json(route('transaction.store'))
+    };
     </script>
+    <script src="{{asset('js/showCheckoutData.js')  }}"></script>
+    <script src="{{asset('js/checkoutAction.js')  }}"></script>
+    <script src="{{asset('js/notification.js')  }}"></script>
     <script src="{{ asset('js/numberFormat.js') }}"></script>
 
 </body>
