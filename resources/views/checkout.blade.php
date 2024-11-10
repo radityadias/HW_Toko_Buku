@@ -6,7 +6,7 @@
     <title>Checkout</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body class="bg-[#0D1419]">
+<body class="bg-[#FCF8F5] bg-[url('../../public/bg-user.png')] bg-cover bg-center">
 <div id="toast-success" class=" opacity-0 z-50 absolute  transition-opacity right-2 top-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -27,7 +27,7 @@
         @if(isset($cart) && count($cart) > 0)
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-50 dark:text-gray-50">
-                    <thead class="text-xs text-gray-50 uppercase bg-[#253644] dark:bg-gray-50 dark:text-gray-50">
+                    <thead class="text-xs text-black uppercase bg-[#D7C6B1] dark:bg-gray-50 dark:text-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">ID Buku</th>
                             <th scope="col" class="px-6 py-3">Title</th>
@@ -44,8 +44,8 @@
                 @php        // Find the corresponding book based on the book_id
                     $book = $books->where('book_id', $item['id_book'])->first();
                 @endphp
-                <tr class="bg-[#1A2731] border-[#1A2731] dark:bg-gray-800 dark:border-[#1A2731] hover:bg-[#3E4952] dark:hover:bg-gray-600">
-                    <td class="px-6 py-4 font-medium text-gray-50 whitespace-nowrap dark:text-white">
+                <tr class="bg-white dark:bg-gray-800 dark:border-[#1A2731] hover:bg-gray-100 dark:hover:bg-gray-600 text-black border-b border-gray-200">
+                    <td class="px-6 py-4 font-medium whitespace-nowrap dark:text-white">
                         {{ $item['id_book'] }}
                     </td>
                     <td class="px-6 py-4">
@@ -61,13 +61,13 @@
                             </div>
                         @endif
                         <div class="inline-flex rounded-md shadow-sm" role="group">
-                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#253644] border border-[#253644] rounded-l-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', -1)">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#6C8398] border border-[#6C8398] rounded-l-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', -1)">
                                 -
                             </button>
-                            <div class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#3E4952] border-t border-b border-[#3E4952]">
+                            <div class="px-4 py-2 text-sm font-medium text-black bg-white border-t">
                                 {{ $item['quantity'] }}
                             </div>
-                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#253644] border border-[#253644] rounded-r-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', 1)">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#6C8398] border border-[#6C8398] rounded-r-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', 1)">
                                 +
                             </button>
                         </div>
@@ -84,10 +84,10 @@
                 </table>
             </div>
 
-            <div class="px-6 py-4 dark:bg-gray-700 flex justify-center items-center">
+            <div class="px-6 py-4 dark:bg-gray-700 bg-white flex justify-center items-center">
                 <a class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md" href="{{ route('books.show') }}">Go Back</a>
             </div>
-            <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 flex justify-between items-end">
+            <div class="px-6 py-4 bg-[#F9F2EB] dark:bg-gray-700 flex justify-between items-end">
                 <div class="flex flex-col">
                     <form action="{{ route('customers.store') }}" method="POST">
                         @csrf
