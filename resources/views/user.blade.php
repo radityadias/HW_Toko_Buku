@@ -51,14 +51,14 @@
             @foreach ($books as $book)
             @if ($book->stock != 0)
                 <!-- Card 1 -->
-                <div class="bg-[#1A2731] shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
+                <div class="bg-[#ffffff] shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
                     <img src="{{ asset('book-sample.png') }}" alt="Cover Buku" class="w-full h-64 object-cover rounded-lg mb-4">
-                    <h3 class="text-white font-semibold mb-1">{{ $book->title }}</h3>
+                    <h3 class="text-gray-900 font-semibold mb-1">{{ $book->title }}</h3>
                     <hr>
-                    <p class="text-gray-50 mt-2">{{ $book->author }}</p>
-                    <p class="text-sm text-gray-300">{{ $book->category->name }}</p>
+                    <p class="text-gray-800 mt-2">{{ $book->author }}</p>
+                    <p class="text-sm text-gray-500">{{ $book->category->name }}</p>
                     <div class="flex items-center justify-between">
-                        <span class="md:text-white text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                        <span class="md:text-gray-900 text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
                         <form>
                         <button type="submit" onclick="successNotification(booksuccessadd, 1000)" data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                             Buy now</button>
