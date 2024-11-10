@@ -9,7 +9,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="bg-[#FCF8F5] bg-[url('../../public/bg-user.png')] bg-cover bg-center">
 
     {{-- Navbar & Sidebar --}}
     <x-navbar-user />
@@ -23,7 +23,7 @@
                     class="w-3/4 px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     id="searchInput" value="{{ old('title') }}" />
                 <button type="submit"
-                    class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    class="ml-2 px-4 py-2 bg-[#547592] text-white rounded-lg hover:bg-[#415A71] focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Search
                 </button>
             </form>
@@ -60,7 +60,7 @@
                     <div class="flex items-center justify-between">
                         <span class="md:text-lg text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
                         <form>
-                        <button type="submit"  data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <button type="submit" onclick="successNotification(booksuccessadd, 1000)" data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-[#F56164] text-white px-4 py-2 rounded hover:bg-[#CB5053]">
                             Buy now</button>
                         </form>
                     </div>
@@ -71,10 +71,13 @@
 
         </div>
     </div>
+
     <script src="{{ asset('js/cart.js') }}">
+
         // Fungsi untuk menambahkan buku ke keranjang
     </script>
     <script src="{{ asset('js/numberFormat.js') }}"></script>
+    <script src="{{asset('js/notification.js')  }}"></script>
 
 </body>
 

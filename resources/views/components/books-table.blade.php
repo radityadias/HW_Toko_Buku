@@ -3,7 +3,7 @@
 
 <div class="relative overflow-x-auto sm:rounded-lg">
     <div
-        class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+        class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-[#1A2730] dark:bg-gray-900 px-5">
         <div>
             <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction"
                 class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
@@ -35,11 +35,11 @@
             </div>
 
             <button data-modal-target="bookAdd" data-modal-toggle="bookAdd"
-                class="inline-flex items-center text-black bg-green-200 border border-green-300 focus:outline-none hover:bg-green-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                class="inline-flex items-center text-white bg-blue-500 border border-blue-600 focus:outline-none hover:bg-blue-600 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                 type="button">
                 <span class="sr-only">Add button</span>
                 Add
-                <svg class="w-4 h-4 text-gray-800 dark:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-4 h-4 text-white dark:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
@@ -48,11 +48,11 @@
             </button>
 
             <a href={{route('books.sort')}}
-            class="inline-flex items-center text-black bg-blue-200 border border-blue-300 focus:outline-none hover:bg-blue-400 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            class="inline-flex items-center text-white bg-blue-500 border-b border-blue-600 focus:outline-none hover:bg-blue-600 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
             type="button">
             <span class="sr-only">Home Button</span>
             <span>Home</span>
-            <svg class="w-4 h-4 text-gray-800 dark:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            <svg class="w-4 h-4 text-white dark:text-white ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                 <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
             </svg>
@@ -161,14 +161,14 @@
             <form action="{{ route('books.search', '') }}" method="GET"
                 onsubmit="this.action='{{ url('admin') }}/' + encodeURIComponent(this.title.value)">
                 <input type="text" id="table-search-users" name="title"
-                    class="block pt-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="block pt-2 ps-10 text-sm text-white border border-gray-700 rounded-lg w-80 bg-[#253644] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Search for book">
                 <button type="submit" class="hidden">Search</button>
             </form>
         </div>
     </div>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-[#253644]">
             <tr>
                 @php
                     $sortDirection = request('sort_direction', 'asc');
@@ -185,7 +185,7 @@
                         <span class="mr-2">Title</span>
                         <a
                             href="{{ route('books.sort', ['sort_by' => 'title', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -199,7 +199,7 @@
                         <span class="mr-2">Author</span>
                         <a
                             href="{{ route('books.sort', ['sort_by' => 'author', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -213,7 +213,7 @@
                         <span class="mr-2">Price</span>
                         <a
                             href="{{ route('books.sort', ['sort_by' => 'price', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -227,7 +227,7 @@
                         <span class="mr-2">Stock</span>
                         <a
                             href="{{ route('books.sort', ['sort_by' => 'stock', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -241,7 +241,7 @@
                         <span class="mr-2">Category</span>
                         <a
                             href="{{ route('books.sort', ['sort_by' => 'category_name', 'sort_direction' => $sortDirection === 'asc' ? 'desc' : 'asc']) }}">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                            <svg class="w-4 h-4 text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -259,7 +259,7 @@
             @if($books->isNotEmpty())
             @foreach ($books as $item)
             <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                class="bg-[#1A2730] border-b border-[#253644] hover:bg-[#1F2F3A] dark:hover:bg-gray-600">
                 <td class="w-4 p-4">
                     <div class="flex items-center">
                         <input id="checkbox-table-search-1" type="checkbox"
@@ -267,24 +267,24 @@
                         <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                     </div>
                 </td>
-                <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                <th scope="row" class=" px-3 py-4 whitespace-nowrap text-white">
                     <div class="ps-3">
                         <div class="text-base font-semibold">{{ $item->title }}</div>
                     </div>
                 </th>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $item->author }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     Rp {{ number_format($item->price, 0, ',', '.') }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
                     {{ $item->stock }}
-                </td>
-                <td class="px-6 py-4">
+                </td> 
+                <td class="px-6 py-4 text-white">
                     {{ $item->category->name }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-white">
 
                     {{-- Delete Books --}}
 
@@ -426,7 +426,7 @@
                                         <div class="col-span-2 sm:col-span-1">
                                             <label for="stock"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Stock</label>
-                                            <input type="number" name="stock" id="stock"
+                                            <input type="number" name="stock" id="stock" min="0"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                                 value="{{ $item->stock }}" required="">
                                         </div>

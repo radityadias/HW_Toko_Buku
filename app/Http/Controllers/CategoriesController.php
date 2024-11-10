@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BooksModel;
 use App\Models\CategoryModel;
 use Illuminate\Http\Request;
 
@@ -31,5 +32,20 @@ class CategoriesController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function updateCategories(Request $request, $id){
+        $request -> validate([
+            'name' => 'required',
+        ]);
+
+        $cate = CategoryModel::findOrFail($id);
+
+        $cate->name = $request->name;
+
+        $cate->save();
+
+        return redirect()->back();
+
     }
 }

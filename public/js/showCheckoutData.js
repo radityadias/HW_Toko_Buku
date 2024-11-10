@@ -80,7 +80,7 @@ function requestToStore() {
         .then((data) => {
             console.log(data.message);
             localStorage.removeItem("cart"); // Hapus cart setelah checkout berhasil
-            successNotification(successMessage);
+            successNotification(successMessage, 3000);
             setTimeout(() => {
                 window.location.reload();
             }, 1000);

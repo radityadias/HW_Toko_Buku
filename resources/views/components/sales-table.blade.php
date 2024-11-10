@@ -2,8 +2,8 @@
 
 
 <div class="relative overflow-x-auto sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <table class="w-full text-sm text-left rtl:text-right">
+        <thead class="text-xs text-white uppercase bg-[#253644] dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
                     <div class="flex items-center">
@@ -34,11 +34,9 @@
                 </th>
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
-                        <span class="mr-2">Price</span>
+                        <span class="mr-2">Total Price</span>
                     </div>
                 </th>
-
-
                 <th scope="col" class="px-6 py-3">
                     Action
                 </th>
@@ -47,7 +45,7 @@
         <tbody>
             @foreach ($transaction as $item)
                 <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    class="bg-[#1A2730] border-b border-[#253644] dark:bg-gray-800 dark:border-gray-700 hover:bg-[#1F2F3A] dark:hover:bg-gray-600">
                     <td class="w-4 p-4">
                         <div class="flex items-center">
                             <input id="checkbox-table-search-1" type="checkbox"
@@ -55,34 +53,38 @@
                             <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 text-white whitespace-nowrap dark:text-white">
                         <div class="ps-3">
                             <div class="text-base font-semibold">{{ $item->sale_id }}</div>
                         </div>
                     </th>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 text-white whitespace-nowrap dark:text-white">
                         <div class="ps-3">
                             <div class="text-base font-semibold">{{ $item->customer->name }}</div>
                         </div>
                     </th>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 text-white whitespace-nowrap dark:text-white">
                         <div class="ps-3">
                             @foreach ($item->books as $book )
-                                <div class="text-base font-semibold">{{ $book->title }},</div>
+                                <div class="text-base font-semibold">{{ $book->title }}</div>
                             @endforeach
                         </div>
                     </th>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 text-white whitespace-nowrap dark:text-white">
                         <div class="ps-3">
-                            <div class="text-base font-semibold">null</div>
+                        @foreach ($item->books as $book )
+                            <div class="text-base font-semibold">{{$book->pivot->quantity}}</div>
+                        @endforeach
                         </div>
                     </th>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 text-white whitespace-nowrap dark:text-white">
                         <div class="ps-3">
+                            @foreach ($item->books as $book )
                             <div class="text-base font-semibold">{{ $item->total_price }}</div>
+                            @endforeach
                         </div>
                     </th>
-                    
+
                     <td class="px-6 py-4">
 
                         {{-- Delete Categories --}}

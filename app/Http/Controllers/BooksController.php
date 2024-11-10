@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BooksModel;
 use App\Models\CategoryModel;
 use App\Models\SalesModel;
+use App\Models\CustomersModel;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -21,8 +22,10 @@ class BooksController extends Controller
         $sortColumn = $request->input('sort_by', 'title');
         $sortDirection = $request->input('sort_direction', 'asc');
         $transactions = SalesModel::with('customer', 'books')->get();
+        $customers = CustomersModel::all();
 
         $cate = CategoryModel::all();
+        $transactions = SalesModel::with('customer', 'books')->get();
 
         if ($sortColumn == 'category_name') {
             $books = BooksModel::join('categories', 'books.category_id', '=', 'categories.category_id')
@@ -32,7 +35,7 @@ class BooksController extends Controller
         } else {
             $books = BooksModel::orderBy($sortColumn, $sortDirection)->get();
         }
-        return view('admin', compact('books', 'cate', 'transactions'));
+        return view('admin', compact('books', 'cate', 'transactions', 'customers'));
     }
 
     public function getSearchBooks($title){
@@ -46,13 +49,14 @@ class BooksController extends Controller
         try {
             $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
             $cate = CategoryModel::all();
-
+            $transactions = SalesModel::with('customer', 'books')->get();
+            $customers = CustomersModel::all();
             // Check if books were found
             if ($books->isEmpty()) {
                 throw new \Exception('No books with title: ' . $title);
             }
 
-            return view('admin', compact('books', 'cate'));
+            return view('admin', compact('books', 'cate', 'transactions', 'customers'));
         } catch (\Exception $e) {
             // Redirect back with an error message
             return redirect()->back()->with('error', ' ' . $e->getMessage());
@@ -67,8 +71,9 @@ class BooksController extends Controller
         try{
         $books = BooksModel::with('category')->where('category_id', '=', $genre)->get();
         $cate = CategoryModel::all();
-
-            return view('admin', compact('books', 'cate'));
+        $transactions = SalesModel::with('customer', 'books')->get();
+        $customers = CustomersModel::all();
+            return view('admin', compact('books', 'cate', 'transactions', 'customers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', ' ' . $e->getMessage());
         }

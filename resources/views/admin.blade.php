@@ -15,8 +15,8 @@
     <x-navbar />
 
     {{-- Konten --}}
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 mt-14 border">
+    <div class="p-4 sm:ml-64 bg-[#121B22]">
+        <div class="p-4 mt-14 bg-[#283C49] rounded-[10px]">
             @section('content')
             {{-- Display Error Message --}}
         @if(session('error'))
@@ -36,21 +36,29 @@
             </button>
         </div>
         @endif
-            <p class="text-lg font-semibold">Books</p>
+            <p class="text-lg font-semibold text-white">Books</p>
             <x-books-table :books="$books" :categories="$cate" />
         </div>
     </div>
 
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 border">
-            <p class="text-lg font-semibold">Categories</p>
+    <div class="p-4 sm:ml-64 bg-[#121B22]">
+        <div class="p-4 bg-[#283C49] rounded-[10px]">
+            <p class="text-lg font-semibold text-white">Categories</p>
             <x-categories-table :books="$books" :categories="$cate" />
         </div>
     </div>
-    <div class="p-4 sm:ml-64">
-        <div class="p-4 border">
-            <p class="text-lg font-semibold mb-5">Sales</p>
+
+    <div class="p-4 sm:ml-64 bg-[#121B22]">
+        <div class="p-4 bg-[#283C49] rounded-[10px]">
+            <p class="text-lg font-semibold mb-5 text-white">Sales</p>
             <x-sales-table :books="$books" :categories="$cate" :transaction="$transactions"/>
+        </div>
+    </div>
+
+    <div class="p-4 sm:ml-64 bg-[#121B22]">
+        <div class="p-4 bg-[#283C49] rounded-[10px]">
+            <p class="text-lg font-semibold mb-5 text-white">Users</p>
+            <x-user-table :books="$books" :categories="$cate" :customer="$customers"/>
         </div>
     </div>
 
@@ -59,7 +67,7 @@
     <div class="error">{{ $message }}</div>
     @enderror
 
-    <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+    <script src="/"></script>
     <script src="{{ asset('js/numberFormat.js') }}"></script>
 </body>
 
