@@ -1,3 +1,5 @@
+{{-- Navbar Admin --}}
+
 <nav class="fixed top-0 z-50 w-full bg-[#283C49] border-b border-[#7A7A7A] dark:bg-gray-800 dark:border-gray-700">
     <div class="px-3 py-3 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
@@ -15,8 +17,7 @@
                 </button>
                 <a href="/" class="flex ms-2 md:me-24">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">Home</span>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white">Home</span>
                 </a>
             </div>
             <div class="flex items-center">
@@ -69,6 +70,7 @@
     </div>
 </nav>
 
+{{-- Sidebar Admin --}}
 <aside id="logo-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-[#283C49] border-r border-[#7A7A7A] sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
     aria-label="Sidebar">
@@ -87,18 +89,6 @@
                     <span class="ms-3">Dashboard</span>
                 </a>
             </li>
-            <li>
-                <a href="#"
-                    class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-black dark:hover:bg-gray-700 group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                        <path
-                            d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
-                    </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Kanban</span>
-                </a>
-            </li>
-
         </ul>
     </div>
 </aside>

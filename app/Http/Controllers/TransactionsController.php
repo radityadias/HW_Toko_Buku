@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
+    /* Fungsi mengambil data buku  */
     public function getBooks(){
         $books = BooksModel::with('category')->get();
 
         return view('user', compact('books'));
     }
 
+    /* Fungsi mencari data buku sesuai judul */
     public function getSearchBooks($title = null){
 
           // Trim whitespace and check if the title is empty or null
@@ -42,16 +44,17 @@ class TransactionsController extends Controller
         }
     }
 
+    /* Fungsi mengambil data penjualan dari tabel sales */
     public function getTransactions(){
         $transactions = SalesModel::with('customers', 'books')->get();
         return view('customers', compact('transactions'));
     }
 
+    /* Fungsi menyimpan data penjualan ke database */
     public function storeTransactions(Request $request){
         $request->validate([
             'customer_id' => 'required',
             'total_price' => 'required',
-            // 'book_ids' => 'required|array', // Expecting an array of book IDs
         ]);
 
         // Create the sale
@@ -59,7 +62,6 @@ class TransactionsController extends Controller
 
         $sale->customer_id = $request->input('customer_id');
         $sale->total_price = $request->input('total_price');
-        // $sale->quantity = $request->input('quantity');
         $sale->sale_date = now();
         $sale->save();
         $books = $request->input('books');
@@ -71,23 +73,13 @@ class TransactionsController extends Controller
             'quantity' => $book['quantity']
         ];
         }
-        // dd($request->all());
-        // $sale = SalesModel::create([
-        //     'customer_id' => $request->customer_id,
-        //     'total_price' => $request->total_price,
-        //     'sale_date' => now(),
 
-        // ]);
-
-        // Attach books to the sale
-        // $sale->books()->attach($request->book_ids);
-        // $sale->books()->attach($request->quantitys);
-         $saleIdLocate->books()->attach($bookData);
-
+        $saleIdLocate->books()->attach($bookData);
 
         return response()->json(['message' => 'Checkout behasil dilakukan'], 200);
     }
 
+    /* Fungsi update data sales */
     public function updateTransaction(Request $request, $id){
         $request->validate([
             'customer_id' => 'required',
@@ -108,6 +100,7 @@ class TransactionsController extends Controller
         return view('user', compact('sale'));
     }
 
+    /* Fungsi hapus data sales */
     public function deleteTransaction($id){
         $sale = SalesModel::findOrFail($id);
         $sale->books()->detach(); // Detach the books before deleting the sale

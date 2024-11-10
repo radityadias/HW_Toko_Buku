@@ -3,12 +3,15 @@ const enterNameMessage = "enter name your name";
 let totalAmount;
 console.log(window.customerId);
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* Funtion menampilkan data yang ada di keranjang */
 function showCartData() {
     totalAmount = cart.reduce(
         (total, item) => total + item.price * item.quantity,
         0
     );
 
+    /* Melakukan fetch data ke CheckoutController */
     fetch(routes.checkoutProcess, {
         method: "POST",
         headers: {
@@ -31,8 +34,10 @@ function showCartData() {
         });
 }
 
+/* function saat melakukan proses checkout */
 function checkout() {
-    // Kirim data ke server
+
+    // Fetch data ke CheckoutController
     fetch(routes.reduceStock, {
         method: "POST",
         headers: {
@@ -61,10 +66,13 @@ function checkout() {
             // console.error("Error:", error);
             successNotification(enterNameMessage, 1000);
         });
-    // } else {
-    // }
+    
 }
+
+/* Fungsi untuk simpan data ke database */
 function requestToStore() {
+
+    /* Fetch data ke TransactionController */
     fetch(routes.transactionStore, {
         method: "POST",
         headers: {

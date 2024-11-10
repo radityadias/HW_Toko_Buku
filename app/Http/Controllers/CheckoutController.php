@@ -10,19 +10,14 @@ use App\models\CategoriesModel;
 
 class CheckoutController extends Controller
 {
-    //     public function addToCart()
-    // {
-    //     // Set a message in the session
-    //     session()->flash('toast_message', 'Book successfully added to cart!');
-    //     logger('Debug message');
-    //     // Redirect back to the view
-    //     return redirect()->back();
-    // }
+
+    /* Fungsi menampilkan data data buku */
     public function showCheckoutPage()
     {
         $books = BooksModel::all();
         return view('checkout', compact('books'));     }
 
+    /* Fungsi melempar data ke view Checout */
     public function processCheckout(Request $request)
     {
         $books = BooksModel::all();
@@ -44,9 +39,10 @@ class CheckoutController extends Controller
             'books' => $books
         ]);
     }
+
+    /* Funsi mengurangi stok sesuai buku yang dibeli */
    public function reduceStock(Request $request){
     try {
-        // dd(!$request->customerId);
         if (!$request->customerId)
         {
             return response()->json([
