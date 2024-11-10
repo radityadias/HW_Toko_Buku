@@ -98,7 +98,7 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Kanban</span>
                 </a>
             </li>
-            
+
         </ul>
     </div>
 </aside>
