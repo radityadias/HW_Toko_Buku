@@ -46,6 +46,14 @@ class CheckoutController extends Controller
     }
    public function reduceStock(Request $request){
     try {
+        // dd(!$request->customerId);
+        if (!$request->customerId)
+        {
+            return response()->json([
+            'message' => 'Terjadi kesalahan',
+            'error' => $e->getMessage()
+        ], 500);
+        }
         $cart = $request->input('cart');
 
         if (!is_array($cart) || empty($cart)) {
