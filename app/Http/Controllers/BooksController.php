@@ -33,6 +33,9 @@ class BooksController extends Controller
     }
 
     public function getSearchBooks($title){
+
+        $title = trim($title ?? '');
+
         if (empty($title)) {
             return redirect()->back()->with('error', 'Search term cannot be empty.');
         }
@@ -54,14 +57,18 @@ class BooksController extends Controller
     }
 
     public function getFilterBooks($genre){
+
+        if (empty($genre)) {
+            throw new \Exception('No books with Genre: ' . $genre);
+        }
+        try{
         $books = BooksModel::with('category')->where('category_id', '=', $genre)->get();
         $cate = CategoryModel::all();
 
-        if ($books->isEmpty()) {
-            throw new \Exception('No books with Genre: ' . $genre);
+            return view('admin', compact('books', 'cate'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', ' ' . $e->getMessage());
         }
-
-        return view('admin', compact('books', 'cate'));
     }
 
     public function delBooks($id){

@@ -15,12 +15,18 @@ class TransactionsController extends Controller
         return view('user', compact('books'));
     }
 
-    public function getSearchBooks($title){
+    public function getSearchBooks($title = null){
+
+          // Trim whitespace and check if the title is empty or null
+          $title = trim($title);
+
+
         if (empty($title)) {
             return redirect()->back()->with('error', 'Search term cannot be empty.');
         }
 
         try {
+            // Search books by title if it's not empty
             $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
             $cate = CategoryModel::all();
 
@@ -49,16 +55,22 @@ class TransactionsController extends Controller
         ]);
 
         // Create the sale
-        $sale = SalesModel::create([
-            'customer_id' => $request->customer_id,
-            'total_price' => $request->total_price,
-            'sale_date' => now(), // Set the current date
-        ]);
+        $sale = new SalesModel;
+        $sale->customer_id = $request->input('customer_id');
+        $sale->total_price = $request->input('total_price');
+        $sale->sale_date = now();
+        $sale->save();
+        // $sale = SalesModel::create([
+        //     'customer_id' => $request->customer_id,
+        //     'total_price' => $request->total_price,
+        //     'sale_date' => now(),
+
+        // ]);
 
         // Attach books to the sale
         $sale->books()->attach($request->book_ids);
 
-        return view('customers', compact('sale'));
+        return response()->json(['message' => 'Checkout behasil dilakukan'], 200);
     }
 
     public function updateTransaction(Request $request, $id){
