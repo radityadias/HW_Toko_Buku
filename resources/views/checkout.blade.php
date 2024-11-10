@@ -155,7 +155,7 @@
                 </div>
             @else
                 {{-- Kembali ke halaman user --}}
-                <div class="container mx-auto px-4 py-8 flex justify-center items-center h-64 flex-col">
+                <div class="container bg-white mx-auto px-4 py-8 flex justify-center items-center h-64 flex-col">
                     <p class="text-xl text-gray-500 dark:text-gray-400 mb-4">No items in cart.</p>
                     <a class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md"
                         href="{{ route('books.show') }}">Go Back</a>
