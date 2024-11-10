@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
 <body>
-<div id="toast-success" class=" opacity-0 z-50 absolute  transition-opacity right-2 top-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+<div id="toast-success" class=" opacity-0 duration-300 z-50 absolute  transition-opacity right-2 top-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -87,29 +87,24 @@
             <div class="px-6 py-4 dark:bg-gray-700 flex justify-center items-center">
                 <a class="px-3 py-2 bg-green-400 hover:bg-green-500 text-white rounded-md" href="{{ route('books.show') }}">Go Back</a>
             </div>
+            <form action="{{ route('customers.store') }}" method="POST">
             <div class="px-6 py-4 bg-gray-100 dark:bg-gray-700 flex justify-between items-end">
                 <div class="flex flex-col">
-                    <form action="{{ route('customers.store') }}" method="POST">
                         @csrf
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter your name</label>
-                        <div class="flex">
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your name ..." required />
-                            <button type="submit" class="mt-2 ml-2 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Enter</button>
-                        </div>
-                        </form>
-
-
+                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your name ..." required />
                     <p class="text-lg font-semibold text-gray-900 dark:text-white mt-10">
                         Total Belanja: Rp <span id="total-amount">{{ number_format($totalAmount, 0, ',', '.') }}</span>
                     </p>
                 </div>
 
                 @if ($disabled)
-                    <a href="#" onclick="checkout()" class="checkout-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 ease-in-out">
+                    <button type="submit"onclick="checkout()" class="checkout-button text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition duration-300 ease-in-out">
                         Checkout
-                    </a>
+                    </button>
                 @else
             <div class="text-red-500">Adjust your quantity</div>
+             </form>
            @endif
             </div>
         @else
@@ -124,6 +119,9 @@
 </div>
 
    <script>
+    @if(session('customerId'))
+        window.customerId = {{ session('customerId') }};
+    @endif
     const routes = {
         checkoutProcess: @json(route('checkout.process')),
         reduceStock: @json(route('reduce.stock')),
