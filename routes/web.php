@@ -24,7 +24,7 @@ Route::prefix('admin')->group(function()
     Route::post('/categories', [CategoriesController::class, 'storeCategories']) -> name('categories.store');
     Route::put('/categories/{category_id}',[CategoriesController::class, 'updateCategories']) -> name('categories.update');
     Route::post('/customers', [CustomersController::class,'storeCustomers']) -> name('users.store');
-    Route::delete('/{customer_id}', [CustomersController::class,'delCustomers']) -> name('users.delete');
+    Route::delete('/customers/{customer_id}', [CustomersController::class,'delCustomers']) -> name('users.delete');
     Route::put('/customers/{customer_id}', [CustomersController::class,'updateCustomers']) -> name('users.update');
 });
 
