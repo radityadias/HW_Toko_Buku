@@ -1,3 +1,4 @@
+/* Function formatting number */
 function number_format(number, decimals, dec_point, thousands_sep) {
     // Format number to string
     number = (number + "").replace(",", "").replace(" ", "");

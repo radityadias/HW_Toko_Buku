@@ -33,6 +33,7 @@ Route::prefix('/')->group(function()
     Route::get('/', [TransactionsController::class, 'getBooks'])->name('books.show');
     Route::get('/search/{title?}', [TransactionsController::class, 'getSearchBooks'])->name('books.search');
 });
+
 Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout.show');
 Route::post('/checkout/name', [CustomersController::class, 'storeCustomers']) -> name('customers.store');
 Route::post('/store-transaction', [TransactionsController::class, 'storeTransactions'])->name('transaction.store');

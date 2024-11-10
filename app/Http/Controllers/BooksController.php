@@ -10,14 +10,7 @@ use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
-    // public function getBooks(){
-    //     $books = BooksModel::with('category')->get();
-    //     $cate = CategoryModel::all();
-
-
-    //     return view('admin', compact('books', 'cate'));
-    // }
-
+    /* Fungsi untuk menampilkan data buku, kategori, user, dan sale yang mengarah ke view admin */
     public function sortBooks(Request $request){
         $sortColumn = $request->input('sort_by', 'title');
         $sortDirection = $request->input('sort_direction', 'asc');
@@ -38,6 +31,7 @@ class BooksController extends Controller
         return view('admin', compact('books', 'cate', 'transactions', 'customers'));
     }
 
+    /* Fungsi mencari data buku sesuai judul */
     public function getSearchBooks($title){
 
         $title = trim($title ?? '');
@@ -63,6 +57,7 @@ class BooksController extends Controller
         }
     }
 
+    /* Fungsi filter data sesuai kategori */
     public function getFilterBooks($genre){
 
         if (empty($genre)) {
@@ -80,6 +75,7 @@ class BooksController extends Controller
         }
     }
 
+    /* Fungsi hapus data buku sesuai book_id yang dipilih */
     public function delBooks($id){
         $books = BooksModel::where('book_id', $id);
 
@@ -88,6 +84,7 @@ class BooksController extends Controller
         return redirect()->back();
     }
 
+    /* Fungsi menyimpan data buku ke database */
     public function storeBooks(Request $request){
         try {
             $request->validate([
@@ -123,6 +120,7 @@ class BooksController extends Controller
         }
     }
 
+    /* Fungsi update buku */
     public function updateBooks(Request $request, $id){
         $request -> validate([
             'title' => 'required',
@@ -143,6 +141,5 @@ class BooksController extends Controller
         $books->save();
 
         return redirect()->back();
-
     }
 }

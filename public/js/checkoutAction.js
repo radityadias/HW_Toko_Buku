@@ -1,3 +1,5 @@
+
+/* Fungsi untuk update quantity */
 function updateQuantity(id_book, change) {
     const index = cart.findIndex((item) => item.id_book === id_book);
     if (index !== -1) {
@@ -11,6 +13,7 @@ function updateQuantity(id_book, change) {
     }
 }
 
+/* Fungsi untuk menghapus item yang ada di keranjang */
 function removeItem(id_book) {
     cart = cart.filter((item) => item.id_book !== id_book); // Hapus item dari keranjang
     localStorage.setItem("cart", JSON.stringify(cart)); // Simpan kembali ke localStorage

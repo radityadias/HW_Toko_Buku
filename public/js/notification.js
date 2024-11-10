@@ -1,4 +1,6 @@
-let booksuccessadd = "Buku ditambahkan ke cart";
+let booksuccessadd = "Buku ditambahkan ke cart"; //deklarasi variabel 
+
+/* Function menampilkan notifikasi */
 function successNotification(message, duration) {
     let notification = document.getElementById("toast-success");
     let toastDescription = document.getElementById("message-notification");

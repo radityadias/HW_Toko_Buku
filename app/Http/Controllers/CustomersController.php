@@ -7,47 +7,30 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    public function index(){
-        return view("user");
-    }
-
+    
+    /* Fungsi simpan data user ke database */
     public function storeCustomers(Request $request, ){
 
         $request->validate([
         'name' => 'required',
         ]);
-        $findCustomer = CustomersModel::where('name', $request->name)->first();
+            $findCustomer = CustomersModel::where('name', $request->name)->first();
         if ($findCustomer) {
             $customerId = $findCustomer->customer_id;
         }
         else
         {
-        $newCustomer = CustomersModel::create([
+            $newCustomer = CustomersModel::create([
             'name' => $request->name,
         ]);
-        $customerId = $newCustomer->customer_id;
+            $customerId = $newCustomer->customer_id;
         }
+        
         session()->flash('customerId', $customerId);
-        // dd(session());
         return redirect()->back();
-        // return response()->json(['customer_id' => $newCustomer->customer_id]);
-        // $request -> validate([
-        //     'name' => 'required',
-        // ]);
-        // $findCustomer = CustormersModel::where('name', $request->name)->first();
-        // if ($findCustomer)
-        // {
-        //     $customerId = $findCustomer->customer_id;
-        //     return view('checkout', compact('customerId'));
-        // }
-        // CustomersModel::create([
-        //     'name' => $request->name,
-        // ]);
-        // $latestCustomerid = CustomersModel::latest()->pluck('customer_id')->first();
-
-
-        // return view('checkout', compact('latestCustomerid'));
     }
+
+    /* Fungsi delete user seuai customer_id yang dipilih */
     public function delCustomers($id){
         $customers = CustomersModel::where('customer_id', '=', $id);
 
@@ -56,6 +39,7 @@ class CustomersController extends Controller
         return redirect()->back();
     }
 
+    /* Fungsi update data user */
     public function updateCustomers(Request $request, $id){
         $request -> validate([
             'name' => 'required',
@@ -68,6 +52,5 @@ class CustomersController extends Controller
         $customers->save();
 
         return redirect()->back();
-
     }
 }

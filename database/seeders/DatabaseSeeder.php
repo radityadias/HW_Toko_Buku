@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Abdul'],
         ];
 
-        // Insert all genres at once
+        // Memasukkan data ke tabel di database
         CustomersModel::insert($users);
         CategoryModel::insert($genres);
         BooksModel::insert($books);
