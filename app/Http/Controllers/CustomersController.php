@@ -16,13 +16,10 @@ class CustomersController extends Controller
         $request->validate([
         'name' => 'required',
         ]);
-        // Check if the customer already exists
         $findCustomer = CustomersModel::where('name', $request->name)->first();
         if ($findCustomer) {
             $customerId = $findCustomer->customer_id;
-        // If customer already exists, return the existing customer_id
         }
-        // If customer does not exist, create a new one
         else
         {
         $newCustomer = CustomersModel::create([
@@ -30,9 +27,8 @@ class CustomersController extends Controller
         ]);
         $customerId = $newCustomer->customer_id;
         }
-        session(['customerId' => $customerId]);
-        // dd($customerId);
-        // Return the new customer ID as a JSON response
+        session()->flash('customerId', $customerId);
+        // dd(session());
         return redirect()->back();
         // return response()->json(['customer_id' => $newCustomer->customer_id]);
         // $request -> validate([
