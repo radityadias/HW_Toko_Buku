@@ -4,13 +4,13 @@
             <div class="flex items-center justify-start rtl:justify-end">
                 <a href="/" class="flex ms-2 md:me-24">
                     <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Home</span>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-white ">Home</span>
                 </a>
             </div>
             <div class="flex items-center">
                 <div class="flex items-center space-x-4">
                     <!-- Ikon Keranjang -->
-                    <a href="{{ route('checkout.show') }}"  class="text-gray-800 dark:text-white relative">
+                    <a href="{{ route('checkout.show') }}"  class="text-gray-50 dark:text-white relative">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18l1 9H4L3 3z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18c0 1.104.896 2 2 2s2-.896 2-2H6zM16 18c0 1.104.896 2 2 2s2-.896 2-2H16z" />

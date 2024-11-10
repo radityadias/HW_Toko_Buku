@@ -20,7 +20,7 @@
 
             <form action="{{ route('books.search', '') }}" method="GET" class="flex justify-center mb-6" onsubmit="this.action='{{ url('/search') }}/'+ encodeURIComponent(this.title.value)">
                 <input name="title" type="text" placeholder="Search for books..."
-                    class="w-3/4 px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    class="w-3/4 px-4 py-2 border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                     id="searchInput" value="{{ old('title') }}" />
                 <button type="submit"
                     class="ml-2 px-4 py-2 bg-[#547592] text-white rounded-lg hover:bg-[#415A71] focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -51,14 +51,14 @@
             @foreach ($books as $book)
             @if ($book->stock != 0)
                 <!-- Card 1 -->
-                <div class="bg-white shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
+                <div class="bg-[#ffffff] shadow-md rounded-lg p-4 lg:w-[300px] md:w-[250px] w-[230px]">
                     <img src="{{ asset('book-sample.png') }}" alt="Cover Buku" class="w-full h-64 object-cover rounded-lg mb-4">
-                    <h3 class="text-lg font-semibold mb-1">{{ $book->title }}</h3>
+                    <h3 class="text-gray-900 font-semibold mb-1">{{ $book->title }}</h3>
                     <hr>
-                    <p class="text-gray-700 mt-2">{{ $book->author }}</p>
+                    <p class="text-gray-800 mt-2">{{ $book->author }}</p>
                     <p class="text-sm text-gray-500">{{ $book->category->name }}</p>
                     <div class="flex items-center justify-between">
-                        <span class="md:text-lg text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
+                        <span class="md:text-gray-900 text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
                         <form>
                         <button type="submit" onclick="successNotification(booksuccessadd, 1000)" data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-[#F56164] text-white px-4 py-2 rounded hover:bg-[#CB5053]">
                             Buy now</button>

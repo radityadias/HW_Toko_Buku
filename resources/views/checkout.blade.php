@@ -6,8 +6,8 @@
     <title>Checkout</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
 </head>
-<body>
-<div id="toast-success" class=" opacity-0 duration-300 z-50 absolute  transition-opacity right-2 top-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+<body class="bg-[#0D1419]">
+<div id="toast-success" class=" opacity-0 z-50 absolute  transition-opacity right-2 top-4 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
@@ -23,11 +23,11 @@
     </button>
 </div>
  <div class="container mx-auto px-4 py-8">
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-[#1A2731] shadow-md rounded-lg overflow-hidden">
         @if(isset($cart) && count($cart) > 0)
             <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-50 dark:text-gray-50">
+                    <thead class="text-xs text-gray-50 uppercase bg-[#253644] dark:bg-gray-50 dark:text-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">ID Buku</th>
                             <th scope="col" class="px-6 py-3">Title</th>
@@ -44,8 +44,8 @@
                 @php        // Find the corresponding book based on the book_id
                     $book = $books->where('book_id', $item['id_book'])->first();
                 @endphp
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr class="bg-[#1A2731] border-[#1A2731] dark:bg-gray-800 dark:border-[#1A2731] hover:bg-[#3E4952] dark:hover:bg-gray-600">
+                    <td class="px-6 py-4 font-medium text-gray-50 whitespace-nowrap dark:text-white">
                         {{ $item['id_book'] }}
                     </td>
                     <td class="px-6 py-4">
@@ -61,13 +61,13 @@
                             </div>
                         @endif
                         <div class="inline-flex rounded-md shadow-sm" role="group">
-                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100" onclick="updateQuantity('{{ $item['id_book'] }}', -1)">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#253644] border border-[#253644] rounded-l-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', -1)">
                                 -
                             </button>
-                            <div class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200">
+                            <div class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#3E4952] border-t border-b border-[#3E4952]">
                                 {{ $item['quantity'] }}
                             </div>
-                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-lg hover:bg-gray-100" onclick="updateQuantity('{{ $item['id_book'] }}', 1)">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gray-50 bg-[#253644] border border-[#253644] rounded-r-lg hover:bg-[#3E4952]" onclick="updateQuantity('{{ $item['id_book'] }}', 1)">
                                 +
                             </button>
                         </div>

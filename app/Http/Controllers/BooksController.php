@@ -73,6 +73,7 @@ class BooksController extends Controller
         $cate = CategoryModel::all();
         $transactions = SalesModel::with('customer', 'books')->get();
         $customers = CustomersModel::all();
+
             return view('admin', compact('books', 'cate', 'transactions', 'customers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', ' ' . $e->getMessage());
