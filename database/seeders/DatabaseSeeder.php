@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\BooksModel;
 use App\Models\CategoryModel;
+use App\Models\CustomersModel;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -59,7 +60,16 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $users = [
+            ['name' => 'Yoga'],
+            ['name' => 'Bayu'],
+            ['name' => 'Desi'],
+            ['name' => 'Adam'],
+            ['name' => 'Abdul'],
+        ];
+
         // Insert all genres at once
+        CustomersModel::insert($users);
         CategoryModel::insert($genres);
         BooksModel::insert($books);
     }
