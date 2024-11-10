@@ -22,6 +22,10 @@ Route::prefix('admin')->group(function()
     Route::put('/books/{book_id}', [BooksController::class, 'updateBooks']) -> name('books.update');
     Route::delete('/{category_id}', [CategoriesController::class, 'delCategories']) -> name('categories.delete');
     Route::post('/categories', [CategoriesController::class, 'storeCategories']) -> name('categories.store');
+    Route::put('/categories/{category_id}',[CategoriesController::class, 'updateCategories']) -> name('categories.update');
+    Route::post('/customers', [CustomersController::class,'storeCustomers']) -> name('users.store');
+    Route::delete('/customers/{customer_id}', [CustomersController::class,'delCustomers']) -> name('users.delete');
+    Route::put('/customers/{customer_id}', [CustomersController::class,'updateCustomers']) -> name('users.update');
 });
 
 Route::prefix('/')->group(function()

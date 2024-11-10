@@ -34,7 +34,7 @@
                 </th>
                 <th scope="col" class="px-6 py-4">
                     <div class="flex items-center">
-                        <span class="mr-2">Price</span>
+                        <span class="mr-2">Total Price</span>
                     </div>
                 </th>
 
@@ -68,21 +68,25 @@
                     <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                         <div class="ps-3">
                             @foreach ($item->books as $book )
-                                <div class="text-base font-semibold">{{ $book->title }},</div>
+                                <div class="text-base font-semibold">{{ $book->title }}</div>
                             @endforeach
                         </div>
                     </th>
                     <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                         <div class="ps-3">
-                            <div class="text-base font-semibold">null</div>
+                        @foreach ($item->books as $book )
+                            <div class="text-base font-semibold">{{$book->pivot->quantity}}</div>
+                        @endforeach
                         </div>
                     </th>
                     <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                         <div class="ps-3">
+                            @foreach ($item->books as $book )
                             <div class="text-base font-semibold">{{ $item->total_price }}</div>
+                            @endforeach
                         </div>
                     </th>
-                    
+
                     <td class="px-6 py-4">
 
                         {{-- Delete Categories --}}

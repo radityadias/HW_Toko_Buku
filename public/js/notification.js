@@ -1,4 +1,6 @@
-function successNotification(message) {
+let booksuccessadd="Buku ditambahkan ke cart"
+
+function successNotification(message, duration) {
     let notification = document.getElementById("toast-success");
     let toastDescription = document.getElementById("message-notification");
     toastDescription.innerHTML = message;
@@ -8,5 +10,5 @@ function successNotification(message) {
     setTimeout(() => {
         notification.classList.remove("opacity-100");
         notification.classList.add("opacity-0");
-    }, 5000);
+    }, duration);
 }

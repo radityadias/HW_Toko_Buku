@@ -60,7 +60,7 @@
                     <div class="flex items-center justify-between">
                         <span class="md:text-lg text-[16px] font-semibold">Rp {{ number_format($book->price, 0, ',', '.') }}</span>
                         <form>
-                        <button type="submit"  data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        <button type="submit" onclick="successNotification(booksuccessadd, 1000)" data-id_book="{{ $book->book_id }}" data-title="{{ $book->title }}" data-price="{{ $book->price }}" class="add-to-cart bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                             Buy now</button>
                         </form>
                     </div>
@@ -71,10 +71,13 @@
 
         </div>
     </div>
+
     <script src="{{ asset('js/cart.js') }}">
+
         // Fungsi untuk menambahkan buku ke keranjang
     </script>
     <script src="{{ asset('js/numberFormat.js') }}"></script>
+    <script src="{{asset('js/notification.js')  }}"></script>
 
 </body>
 
