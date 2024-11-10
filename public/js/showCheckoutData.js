@@ -1,4 +1,6 @@
 const successMessage = "checkout successful";
+// const enterName = "enter name";
+// let isNameNull = "true";
 let totalAmount;
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 function getRandomNumberInRange() {
@@ -31,9 +33,15 @@ function showCartData() {
             console.error("Error:", error); // Tangani error
         });
 }
+// function handleName(e) {
 
+//     isNameNull = false;
+//     console.log(isNameNull);
+// }
 function checkout() {
     // Kirim data ke server
+    // console.log(isNameNull);
+    // if (!isNameNull) {
     fetch(routes.reduceStock, {
         method: "POST",
         headers: {
@@ -61,6 +69,9 @@ function checkout() {
         .catch((error) => {
             console.error("Error:", error);
         });
+    // } else {
+    //     successNotification(enterName, 2000);
+    // }
 }
 function requestToStore() {
     fetch(routes.transactionStore, {
@@ -87,7 +98,7 @@ function requestToStore() {
             successNotification(successMessage, 3000);
             setTimeout(() => {
                 window.location.reload();
-            }, 10000);
+            }, 3000);
         })
         .catch((error) => {
             console.error("Error:", error);
