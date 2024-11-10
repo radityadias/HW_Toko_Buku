@@ -20,7 +20,7 @@
 
             <form action="{{ route('books.search', '') }}" method="GET" class="flex justify-center mb-6" onsubmit="this.action='{{ url('/search') }}/'+ encodeURIComponent(this.title.value)">
                 <input name="title" type="text" placeholder="Search for books..."
-                    class="w-3/4 px-4 py-2 border-[#0D1419] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#253644] text-white"
+                    class="w-3/4 px-4 py-2 border-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"
                     id="searchInput" value="{{ old('title') }}" />
                 <button type="submit"
                     class="ml-2 px-4 py-2 bg-[#547592] text-white rounded-lg hover:bg-[#415A71] focus:outline-none focus:ring-2 focus:ring-blue-500">
