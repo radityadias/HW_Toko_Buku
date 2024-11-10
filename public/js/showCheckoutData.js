@@ -1,11 +1,8 @@
 const successMessage = "checkout successful";
-// const enterName = "enter name";
-// let isNameNull = "true";
+const enterNameMessage = "enter name your name";
 let totalAmount;
+console.log(window.customerId);
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-function getRandomNumberInRange() {
-    return Math.floor(Math.random() * 4) + 1;
-}
 function showCartData() {
     totalAmount = cart.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -33,15 +30,9 @@ function showCartData() {
             console.error("Error:", error); // Tangani error
         });
 }
-// function handleName(e) {
 
-//     isNameNull = false;
-//     console.log(isNameNull);
-// }
 function checkout() {
     // Kirim data ke server
-    // console.log(isNameNull);
-    // if (!isNameNull) {
     fetch(routes.reduceStock, {
         method: "POST",
         headers: {
@@ -50,7 +41,7 @@ function checkout() {
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content"),
         },
-        body: JSON.stringify({ cart: cart }),
+        body: JSON.stringify({ cart: cart, customerId: window.customerId }),
     })
         .then((response) => {
             if (!response.ok) {
@@ -67,10 +58,10 @@ function checkout() {
             }
         })
         .catch((error) => {
-            console.error("Error:", error);
+            // console.error("Error:", error);
+            successNotification(enterNameMessage, 1000);
         });
     // } else {
-    //     successNotification(enterName, 2000);
     // }
 }
 function requestToStore() {
@@ -95,13 +86,14 @@ function requestToStore() {
         .then((data) => {
             console.log(data.message);
             localStorage.removeItem("cart"); // Hapus cart setelah checkout berhasil
-            successNotification(successMessage, 3000);
+            successNotification(successMessage, 1000);
             setTimeout(() => {
                 window.location.reload();
-            }, 3000);
+            }, 500);
         })
         .catch((error) => {
-            console.error("Error:", error);
+            // console.error("Error:", error);
+            // successNotification(enterNameMessage, 2000);
         });
 }
 
