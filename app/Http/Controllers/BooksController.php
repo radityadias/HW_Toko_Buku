@@ -49,13 +49,14 @@ class BooksController extends Controller
         try {
             $books = BooksModel::with('category')->where('title', 'LIKE','%'.$title.'%')->get();
             $cate = CategoryModel::all();
-
+            $transactions = SalesModel::with('customer', 'books')->get();
+            $customers = CustomersModel::all();
             // Check if books were found
             if ($books->isEmpty()) {
                 throw new \Exception('No books with title: ' . $title);
             }
 
-            return view('admin', compact('books', 'cate'));
+            return view('admin', compact('books', 'cate', 'transactions', 'customers'));
         } catch (\Exception $e) {
             // Redirect back with an error message
             return redirect()->back()->with('error', ' ' . $e->getMessage());
@@ -70,8 +71,9 @@ class BooksController extends Controller
         try{
         $books = BooksModel::with('category')->where('category_id', '=', $genre)->get();
         $cate = CategoryModel::all();
-
-            return view('admin', compact('books', 'cate'));
+        $transactions = SalesModel::with('customer', 'books')->get();
+        $customers = CustomersModel::all();
+            return view('admin', compact('books', 'cate', 'transactions', 'customers'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', ' ' . $e->getMessage());
         }
