@@ -1,6 +1,6 @@
+const successMessage = "checkout successful";
 let totalAmount;
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let successMessage = "checkout successful";
 function getRandomNumberInRange() {
     return Math.floor(Math.random() * 4) + 1;
 }
@@ -53,6 +53,10 @@ function checkout() {
         .then((data) => {
             console.log(data.message);
             requestToStore(totalAmount);
+            console.log(window.customerId);
+            if (window.customerId) {
+                console.log("Customer ID:", window.customerId);
+            }
         })
         .catch((error) => {
             console.error("Error:", error);
@@ -68,7 +72,7 @@ function requestToStore() {
                 .getAttribute("content"),
         },
         body: JSON.stringify({
-            customer_id: getRandomNumberInRange(), // Ganti dengan ID pelanggan sebenarnya, misalnya dari sesi pengguna
+            customer_id: window.customerId, // Ganti dengan ID pelanggan sebenarnya, misalnya dari sesi pengguna
             total_price: totalAmount, // Pastikan totalAmount adalah jumlah total yang benar
             books: cart, // Array of objects with id_book and quantity
         }),
@@ -80,10 +84,10 @@ function requestToStore() {
         .then((data) => {
             console.log(data.message);
             localStorage.removeItem("cart"); // Hapus cart setelah checkout berhasil
-            successNotification(successMessage);
+            successNotification(successMessage, 3000);
             setTimeout(() => {
                 window.location.reload();
-            }, 1000);
+            }, 10000);
         })
         .catch((error) => {
             console.error("Error:", error);

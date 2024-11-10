@@ -56,7 +56,7 @@ class TransactionsController extends Controller
 
         // Create the sale
         $sale = new SalesModel;
-        
+
         $sale->customer_id = $request->input('customer_id');
         $sale->total_price = $request->input('total_price');
         // $sale->quantity = $request->input('quantity');
@@ -105,7 +105,7 @@ class TransactionsController extends Controller
         // Sync the books
         $sale->books()->sync($request->book_ids);
 
-        return view('customers', compact('sale'));
+        return view('user', compact('sale'));
     }
 
     public function deleteTransaction($id){
