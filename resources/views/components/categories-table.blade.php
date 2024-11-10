@@ -3,14 +3,14 @@
 <div class="relative overflow-x-auto sm:rounded-lg">
 
     <div
-        class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-white dark:bg-gray-900">
+        class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 py-4 bg-[#1A2730] px-5">
         <div>
             <button data-modal-target="categoriesAdd" data-modal-toggle="categoriesAdd"
-                class="inline-flex items-center text-black bg-green-200 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                class="inline-flex items-center text-white bg-blue-500 border border-blue-500 focus:outline-none hover:bg-blue-600 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                 type="button">
                 <span class="sr-only">Add button</span>
                 Add
-                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-4 h-4 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 12h14m-7 7V5" />
@@ -76,7 +76,7 @@
 
     {{-- Print Category --}}
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <thead class="text-xs text-white uppercase bg-[#253644] dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="p-4">
                     <div class="flex items-center">
@@ -100,7 +100,7 @@
         <tbody>
             @foreach ($categories as $category)
                 <tr
-                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    class="bg-[#1A2730] border-b border-[#253644] dark:bg-gray-800 dark:border-gray-700 hover:bg-[#1F2F3A] dark:hover:bg-gray-600">
                     <td class="w-4 p-4">
                         <div class="flex items-center">
                             <input id="checkbox-table-search-1" type="checkbox"
@@ -108,7 +108,7 @@
                             <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <th scope="row" class=" px-3 py-4 text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class=" px-3 py-4 whitespace-nowrap text-white">
                         <div class="ps-3">
                             <div class="text-base font-semibold">{{ $category->name }}</div>
                         </div>

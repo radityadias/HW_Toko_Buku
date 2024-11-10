@@ -51,7 +51,6 @@ class BooksController extends Controller
             $cate = CategoryModel::all();
             $transactions = SalesModel::with('customer', 'books')->get();
             $customers = CustomersModel::all();
-
             // Check if books were found
             if ($books->isEmpty()) {
                 throw new \Exception('No books with title: ' . $title);
