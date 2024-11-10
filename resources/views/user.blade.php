@@ -18,7 +18,7 @@
     <div class="lg:container w-full h-auto mx-auto mt-[50px] px-4 py-8">
         
         <!-- Search Bar -->
-
+        
         {{-- Mencari data buku dari TransacationsController --}}
         <form action="{{ route('books.search', '') }}" method="GET" class="flex justify-center mb-6" 
             onsubmit="this.action='{{ url('/search') }}/'+ encodeURIComponent(this.title.value)">
@@ -30,7 +30,7 @@
                 Search
             </button>
         </form>
-
+         
         {{-- Error Handling jika buku tidak ditemukan --}}
         @if (session('error'))
             <div id="toast-warning"
